@@ -1,0 +1,7 @@
+/Users/xyzliang/Downloads/tianchi/bin/x86/Debug2/tianchi.exe.config
+/Users/xyzliang/Downloads/tianchi/bin/x86/Debug2/tianchi.exe
+/Users/xyzliang/Downloads/tianchi/bin/x86/Debug2/LitJSON.dll
+/Users/xyzliang/Downloads/tianchi/obj/x86/Debug2/tianchi.csproj.AssemblyReference.cache
+/Users/xyzliang/Downloads/tianchi/obj/x86/Debug2/tianchi.csproj.CoreCompileInputs.cache
+/Users/xyzliang/Downloads/tianchi/obj/x86/Debug2/tianchi.csproj.CopyComplete
+/Users/xyzliang/Downloads/tianchi/obj/x86/Debug2/tianchi.exe

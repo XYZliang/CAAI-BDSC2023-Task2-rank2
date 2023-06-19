@@ -1,0 +1,1907 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Swifter.Json</name>
+    </assembly>
+    <members>
+        <member name="T:Swifter.Json.JsonCommentType">
+            <summary>
+            Json 注释类型。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonCommentType.Non">
+            <summary>
+            非注释。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonCommentType.SingleLine">
+            <summary>
+            单行注释。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonCommentType.MultiLine">
+            <summary>
+            多行注释
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonDeserializeException">
+            <summary>
+            Json 反序列化出错时的异常信息。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializeException.#ctor(System.Int32)">
+            <summary>
+            构建实例。
+            </summary>
+            <param name="index">反序列化出错所在索引</param>
+        </member>
+        <member name="P:Swifter.Json.JsonDeserializeException.Index">
+            <summary>
+            反序列化出错所在索引。
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonDeserializer">
+            <summary>
+            Json 反序列化 (读取) 器。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonDeserializer.JsonFormatter">
+            <summary>
+            Json 格式化器。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonDeserializer.content">
+            <summary>
+            分段读取器
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonDeserializer.MaxDepth">
+            <summary>
+            最大深度限制。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonDeserializer.Options">
+            <summary>
+            当前配置项。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonDeserializer.Offset">
+            <summary>
+            获取已读取的字符数。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonDeserializer.Rest">
+            <summary>
+            获取剩余字符数。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.#ctor(Swifter.Json.JsonSegmentedContent)">
+            <summary>
+            初始化 Json 反序列化 (读取) 器。
+            </summary>
+            <param name="content">分段读取器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.#ctor(System.Char*,System.Int32)">
+            <summary>
+            初始化 Json 反序列化 (读取) 器。
+            </summary>
+            <param name="chars">Json 字符串</param>
+            <param name="length">Json 字符串长度</param>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.#ctor(Swifter.Json.JsonSegmentedContent,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            初始化 Json 反序列化 (读取) 器。
+            </summary>
+            <param name="content">分段内容</param>
+            <param name="options">指定配置</param>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.#ctor(System.Char*,System.Int32,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            初始化 Json 反序列化 (读取) 器。
+            </summary>
+            <param name="chars">Json 字符串</param>
+            <param name="length">Json 字符串长度</param>
+            <param name="options">指定配置</param>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.#ctor(Swifter.Json.JsonFormatter,Swifter.Json.JsonSegmentedContent)">
+            <summary>
+            初始化 Json 反序列化 (读取) 器。
+            </summary>
+            <param name="jsonFormatter">指定格式化器</param>
+            <param name="content">分段内容</param>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.#ctor(Swifter.Json.JsonFormatter,System.Char*,System.Int32)">
+            <summary>
+            初始化 Json 反序列化 (读取) 器。
+            </summary>
+            <param name="jsonFormatter">指定格式化器</param>
+            <param name="chars">Json 字符串</param>
+            <param name="length">Json 字符串长度</param>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.Create(Swifter.Tools.Ps{System.Char},Swifter.Json.JsonFormatter)">
+            <summary>
+            
+            </summary>
+            <param name="chars"></param>
+            <param name="jsonFormatter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.Create(Swifter.Tools.HGlobalCache{System.Char},System.IO.TextReader,Swifter.Json.JsonFormatter)">
+            <summary>
+            
+            </summary>
+            <param name="hGCache"></param>
+            <param name="textReader"></param>
+            <param name="jsonFormatter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.Create(Swifter.Tools.Ps{System.Char},Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            
+            </summary>
+            <param name="chars"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.Create(Swifter.Tools.HGlobalCache{System.Char},System.IO.TextReader,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            
+            </summary>
+            <param name="hGCache"></param>
+            <param name="textReader"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadBoolean">
+            <summary>
+            读取一个 <see cref="T:System.Boolean"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadByte">
+            <summary>
+            读取一个 <see cref="T:System.Byte"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadChar">
+            <summary>
+            读取一个 <see cref="T:System.Char"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadDateTime">
+            <summary>
+            读取一个 <see cref="T:System.DateTime"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadDecimal">
+            <summary>
+            读取一个 <see cref="T:System.Decimal"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadDouble">
+            <summary>
+            读取一个 <see cref="T:System.Double"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadInt16">
+            <summary>
+            读取一个 <see cref="T:System.Int16"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadInt32">
+            <summary>
+            读取一个 <see cref="T:System.Int32"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadInt64">
+            <summary>
+            读取一个 <see cref="T:System.Int64"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadSByte">
+            <summary>
+            读取一个 <see cref="T:System.SByte"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadSingle">
+            <summary>
+            读取一个 <see cref="T:System.Single"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadUInt16">
+            <summary>
+            读取一个 <see cref="T:System.UInt16"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadUInt32">
+            <summary>
+            读取一个 <see cref="T:System.UInt32"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadUInt64">
+            <summary>
+            读取一个 <see cref="T:System.UInt64"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadGuid">
+            <summary>
+            读取一个 <see cref="T:System.Guid"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadDateTimeOffset">
+            <summary>
+            读取一个 <see cref="T:System.DateTimeOffset"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadTimeSpan">
+            <summary>
+            读取一个 <see cref="T:System.TimeSpan"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadReference">
+            <summary>
+            读取一个引用。
+            </summary>
+            <exception cref="T:System.NotSupportedException">不是一个引用值或引用值格式错误</exception>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadArray``1">
+            <summary>
+            读取一个数组。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadList``1">
+            <summary>
+            读取一个列表。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadArray``1(System.Int32,System.Int32@)">
+            <summary>
+            读取一个数组。
+            </summary>
+            <param name="defaultCapacity">默认容量</param>
+            <param name="length">返回数组长度</param>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadArray(Swifter.RW.IDataWriter{System.Int32})">
+            <summary>
+            读取一个数组。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadObject(Swifter.RW.IDataWriter{System.String})">
+            <summary>
+            读取一个对象。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.InternalReadPropertyName">
+            <summary>
+            确切读取一个属性名。此方法的返回值不要跨线程使用！
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadPropertyName">
+            <summary>
+            确切读取一个属性名。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.TryReadBeginObject">
+            <summary>
+            尝试读取对象开头。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.TryReadEndObject">
+            <summary>
+            尝试读取对象结尾。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.TryReadBeginArray">
+            <summary>
+            尝试读取数组开头。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.TryReadEndArray">
+            <summary>
+            尝试读取数组结尾。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.InternalReadText">
+            <summary>
+            确切读取一个元文本。此方法的返回值不要跨线程使用！
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.InternalReadString">
+            <summary>
+            确切读取一个字符串。此方法的返回值不要跨线程使用！
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadString">
+            <summary>
+            读取一个字符串。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.GetToken">
+            <summary>
+            获取当前值的 Token。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.DirectRead">
+            <summary>
+            直接读取一个值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadNullable``1">
+            <summary>
+            读取一个可空值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadEnum``1">
+            <summary>
+            读取一个枚举值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadValue``1">
+            <summary>
+            读取一个已知类型的值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.SkipValue">
+            <summary>
+            跳过一个值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.SkipWhiteSpace">
+            <summary>
+            跳过空白字符。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.ReadComment(System.Boolean)">
+            <summary>
+            读取一个注释。
+            </summary>
+            <param name="includeSymbols">是否包含注释符</param>
+            <returns>返回注释</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.GetCommentType">
+            <summary>
+            获取当前注释类型。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.InternalReadComment(System.Boolean)">
+            <summary>
+            读取一个注释。此方法的返回值不要跨线程使用！
+            </summary>
+            <param name="includeSymbols">是否包含注释符</param>
+            <returns>返回注释</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonDeserializer.SkipComment">
+            <summary>
+            跳过一个注释。
+            </summary>
+            <returns>返回是否已跳过一个注释</returns>
+        </member>
+        <member name="T:Swifter.Json.JsonEventHandler`1">
+            <summary>
+            JSON 事件委托。
+            </summary>
+            <typeparam name="TEventArgs">事件类型</typeparam>
+            <param name="sender">发送者</param>
+            <param name="e">事件参数</param>
+        </member>
+        <member name="T:Swifter.Json.JsonFilteringEventArgs`1">
+            <summary>
+            JSON 序列化元素时事件参数。
+            </summary>
+            <typeparam name="TKey">元素键类型</typeparam>
+        </member>
+        <member name="F:Swifter.Json.JsonFilteringEventArgs`1.JsonWriter">
+            <summary>
+            当前 Json 写入器。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFilteringEventArgs`1.ValueInfo">
+            <summary>
+            当前值信息。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFilteringEventArgs`1.Result">
+            <summary>
+            是否写入该值。
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonFormatter">
+            <summary>
+            JSON 文档格式化器。
+            此类所有的静态方法和实例方法都是线程安全的。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.GlobalTargetedId">
+            <summary>
+            JsonFormatter 的全局针对目标的 Id。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.CharsPool">
+            <summary>
+            获取 JsonFormatter 使用的全局缓存池。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.DefaultObjectValueInterface">
+            <summary>
+            获取或设置默认对象读写接口。
+            设置此值可以改变反序列化时的默认对象类型。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.DefaultArrayValueInterface">
+            <summary>
+            获取或设置默认数组读写接口。
+            设置此值可以改变反序列化时的默认数组类型。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.DefaultMaxDepth">
+            <summary>
+            默认最大结构深度。
+            可以通过枚举 <see cref="F:Swifter.Json.JsonFormatterOptions.OutOfDepthException"/> 来配置序列化或反序列化时 Json 结构深度超出该值时选择抛出异常还是不解析超出部分。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.DefaultIndentedChars">
+            <summary>
+            默认缩进符，仅在枚举 JsonFormatterOptions 配置为 Indented (缩进美化) 时有效。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.DefaultLineBreakChars">
+            <summary>
+            默认换行符，仅在枚举 JsonFormatterOptions 配置为 Indented (缩进美化) 时有效。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.DefaultMiddleChars">
+            <summary>
+            默认 Key 与 Value 之间的分隔符，仅在枚举 JsonFormatterOptions 配置为 Indented (缩进美化) 时有效。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonFormatter.MaxDepth">
+            <summary>
+            读取或设置最大结构深度。
+            可以通过枚举 <see cref="F:Swifter.Json.JsonFormatterOptions.OutOfDepthException"/> 来配置序列化或反序列化时 Json 结构深度超出该值时选择抛出异常还是不解析超出部分。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonFormatter.IndentedChars">
+            <summary>
+            读取或设置缩进符，仅在枚举 JsonFormatterOptions 配置为 Indented (缩进美化) 时有效。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonFormatter.LineBreakChars">
+            <summary>
+            读取或设置换行符，仅在枚举 JsonFormatterOptions 配置为 Indented (缩进美化) 时有效。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonFormatter.MiddleChars">
+            <summary>
+            读取或设置 Key 与 Value 之间的分隔符，仅在枚举 JsonFormatterOptions 配置为 Indented (缩进美化) 时有效。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.ObjectValueInterface">
+            <summary>
+            获取或设置对象读写接口。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatter.ArrayValueInterface">
+            <summary>
+            获取或设置数组读写接口。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonFormatter.Encoding">
+            <summary>
+            获取或设置字符编码。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonFormatter.Options">
+            <summary>
+            JSON 格式化器配置项。
+            </summary>
+        </member>
+        <member name="E:Swifter.Json.JsonFormatter.ObjectFiltering">
+            <summary>
+            当序列化对象字段时触发。
+            </summary>
+        </member>
+        <member name="E:Swifter.Json.JsonFormatter.ArrayFiltering">
+            <summary>
+            当序列化数组元素时触发。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.#ctor(System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            初始化具有指定编码和指定配置项的 Json 格式化器。
+            </summary>
+            <param name="encoding">指定编码</param>
+            <param name="options">指定配置项</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.#ctor(Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            初始化默认编码 (UTF-8) 和指定配置项的 Json 格式化器。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,Swifter.Tools.HGlobalCache{System.Char})">
+            <summary>
+            将指定类型的实例序列化到 Json 缓存中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="hGCache">Json 缓存</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,System.IO.TextWriter)">
+            <summary>
+            将指定类型的实例序列化到 Json 写入器中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="textWriter">Json 写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0)">
+            <summary>
+            将指定类型的实例序列化为 Json 字符串。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,System.Text.Encoding)">
+            <summary>
+            将指定类型的实例序列化为 Json 字节数组。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="encoding">指定编码</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,Swifter.Tools.HGlobalCache{System.Byte},System.Text.Encoding)">
+            <summary>
+            将指定类型的实例序列化到 Json 字节缓存中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="encoding">指定编码</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            将指定类型的实例序列化到 Json 输出流中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="stream">Json 输出流</param>
+            <param name="encoding">指定编码</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Serialize``1(``0)">
+            <summary>
+            将指定类型的实例序列化为 Json 字符串。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Serialize``1(``0,Swifter.Tools.HGlobalCache{System.Char})">
+            <summary>
+            将指定类型的实例序列化到 Json 缓存中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="hGCache">Json 缓存</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Serialize``1(``0,System.IO.TextWriter)">
+            <summary>
+            将指定类型的实例序列化到 Json 写入器中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="textWriter">Json 写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Serialize``1(``0,System.Byte[]@)">
+            <summary>
+            将指定类型的实例序列化到 Json 字节数组中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="bytes">Json 字节数组</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Serialize``1(``0,Swifter.Tools.HGlobalCache{System.Byte})">
+            <summary>
+            将指定类型的实例序列化到 Json 字节缓存中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="hGCache">Json 字节缓存</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Serialize``1(``0,System.IO.Stream)">
+            <summary>
+            将指定类型的实例序列化到 Json 输出流中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="stream">Json 输出流</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.String)">
+            <summary>
+            将 Json 字符串反序列化为指定类型的实例。
+            </summary>
+            <param name="text">Json 字符串</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.String,System.Type)">
+            <summary>
+            将 Json 字符串反序列化为指定类型的实例。
+            </summary>
+            <param name="text">Json 字符串</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(Swifter.Tools.HGlobalCache{System.Char},System.Type)">
+            <summary>
+            将 Json 缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 缓存</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(Swifter.Tools.HGlobalCache{System.Char})">
+            <summary>
+            将 Json 缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 缓存</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.IO.TextReader)">
+            <summary>
+            将 Json 读取器反序列化为指定类型的实例。
+            </summary>
+            <param name="textReader">Json 读取器</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.IO.TextReader,System.Type)">
+            <summary>
+            将 Json 读取器反序列化为指定类型的实例。
+            </summary>
+            <param name="textReader">Json 读取器</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.ArraySegment{System.Byte},System.Text.Encoding,System.Type)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.Byte[],System.Text.Encoding,System.Type)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(Swifter.Tools.HGlobalCache{System.Byte},System.Text.Encoding,System.Type)">
+            <summary>
+            将 Json 字节缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.IO.Stream,System.Text.Encoding,System.Type)">
+            <summary>
+            将 Json 输入流反序列化为指定类型的实例。
+            </summary>
+            <param name="stream">Json 输入流</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.ArraySegment{System.Byte},System.Text.Encoding)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.Byte[],System.Text.Encoding)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(Swifter.Tools.HGlobalCache{System.Byte},System.Text.Encoding)">
+            <summary>
+            将 Json 字节缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            将 Json 输入流反序列化为指定类型的实例。
+            </summary>
+            <param name="stream">Json 输入流</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize(Swifter.Tools.HGlobalCache{System.Char},System.Type)">
+            <summary>
+            将 Json 缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 缓存</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize(System.IO.TextReader,System.Type)">
+            <summary>
+            将 Json 读取器反序列化为指定类型的实例。
+            </summary>
+            <param name="textReader">Json 读取器</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize``1(System.String)">
+            <summary>
+            将 Json 字符串反序列化为指定类型的实例。
+            </summary>
+            <param name="text">Json 字符串</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize``1(Swifter.Tools.HGlobalCache{System.Char})">
+            <summary>
+            将 Json 缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 缓存</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize``1(System.IO.TextReader)">
+            <summary>
+            将 Json 读取器反序列化为指定类型的实例。
+            </summary>
+            <param name="textReader">Json 读取器</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize(System.String,System.Type)">
+            <summary>
+            将 Json 字符串反序列化为指定类型的实例。
+            </summary>
+            <param name="text">Json 字符串</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize(System.ArraySegment{System.Byte},System.Type)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize(System.Byte[],System.Type)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize(Swifter.Tools.HGlobalCache{System.Byte},System.Type)">
+            <summary>
+            将 Json 字节缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize(System.IO.Stream,System.Type)">
+            <summary>
+            将 Json 输入流反序列化为指定类型的实例。
+            </summary>
+            <param name="stream">Json 输入流</param>
+            <param name="type">指定类型</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize``1(System.ArraySegment{System.Byte})">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize``1(System.Byte[])">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize``1(Swifter.Tools.HGlobalCache{System.Byte})">
+            <summary>
+            将 Json 字节缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 字节缓存</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.Deserialize``1(System.IO.Stream)">
+            <summary>
+            将 Json 输入流反序列化为指定类型的实例。
+            </summary>
+            <param name="stream">Json 输入流</param>
+            <typeparam name="T">指定类型</typeparam>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeTo(System.String,Swifter.RW.IDataWriter)">
+            <summary>
+            将 Json 字符串反序列化到指定的数据写入器中。
+            </summary>
+            <param name="text">Json 字符串</param>
+            <param name="dataWriter">数据写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeTo(Swifter.Tools.HGlobalCache{System.Char},Swifter.RW.IDataWriter)">
+            <summary>
+            将 Json 缓存反序列化到指定的数据写入器中。
+            </summary>
+            <param name="hGCache">Json 缓存</param>
+            <param name="dataWriter">数据写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeTo(System.IO.TextReader,Swifter.RW.IDataWriter)">
+            <summary>
+            将 Json 读取器反序列化到指定的数据写入器中。
+            </summary>
+            <param name="textReader">Json 读取器</param>
+            <param name="dataWriter">数据写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeTo(System.ArraySegment{System.Byte},Swifter.RW.IDataWriter)">
+            <summary>
+            将 Json 字节数组反序列化到指定的数据写入器中。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="dataWriter">数据写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeTo(Swifter.Tools.HGlobalCache{System.Byte},Swifter.RW.IDataWriter)">
+            <summary>
+            将 Json 字节缓存反序列化到指定的数据写入器中。
+            </summary>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="dataWriter">数据写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeTo(System.IO.Stream,Swifter.RW.IDataWriter)">
+            <summary>
+            将 Json 输入流反序列化到指定的数据写入器中。
+            </summary>
+            <param name="stream">Json 输入流</param>
+            <param name="dataWriter">数据写入器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,System.IO.TextWriter,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将指定类型的实例序列化到 Json 写入器中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="textWriter">Json 写入器</param>
+            <param name="options">指定配置项</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将指定类型的实例序列化为 Json 字符串。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="options">指定配置项</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,Swifter.Tools.HGlobalCache{System.Char},Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将指定类型的实例序列化到 Json 缓存中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="hGCache">Json 缓存</param>
+            <param name="options">指定配置项</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将指定类型的实例序列化为 Json 字节数组。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="encoding">指定编码</param>
+            <param name="options">指定配置项</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,Swifter.Tools.HGlobalCache{System.Byte},System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将指定类型的实例序列化到 Json 字节缓存中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="encoding">指定编码</param>
+            <param name="options">指定配置项</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.SerializeObject``1(``0,System.IO.Stream,System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将指定类型的实例序列化到 Json 输出流中。
+            </summary>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="value">指定类型的实例</param>
+            <param name="stream">Json 输出流</param>
+            <param name="encoding">指定编码</param>
+            <param name="options">指定配置项</param>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.String,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字符串反序列化为指定类型的实例。
+            </summary>
+            <param name="text">Json 字符串</param>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.String,System.Type,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字符串反序列化为指定类型的实例。
+            </summary>
+            <param name="text">Json 字符串</param>
+            <param name="type">指定类型</param>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(Swifter.Tools.HGlobalCache{System.Char},System.Type,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 缓存</param>
+            <param name="type">指定类型</param>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(Swifter.Tools.HGlobalCache{System.Char},Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 缓存</param>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.IO.TextReader,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 读取器反序列化为指定类型的实例。
+            </summary>
+            <param name="textReader">Json 读取器</param>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.IO.TextReader,System.Type,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 读取器反序列化为指定类型的实例。
+            </summary>
+            <param name="textReader">Json 读取器</param>
+            <param name="type">指定类型</param>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.ArraySegment{System.Byte},System.Text.Encoding,System.Type,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.Byte[],System.Text.Encoding,System.Type,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(Swifter.Tools.HGlobalCache{System.Byte},System.Text.Encoding,System.Type,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字节缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject(System.IO.Stream,System.Text.Encoding,System.Type,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 输入流反序列化为指定类型的实例。
+            </summary>
+            <param name="stream">Json 输入流</param>
+            <param name="encoding">指定编码</param>
+            <param name="type">指定类型</param>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.ArraySegment{System.Byte},System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.Byte[],System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字节数组反序列化为指定类型的实例。
+            </summary>
+            <param name="bytes">Json 字节数组</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(Swifter.Tools.HGlobalCache{System.Byte},System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 字节缓存反序列化为指定类型的实例。
+            </summary>
+            <param name="hGCache">Json 字节缓存</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonFormatter.DeserializeObject``1(System.IO.Stream,System.Text.Encoding,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            将 Json 输入流反序列化为指定类型的实例。
+            </summary>
+            <param name="stream">Json 输入流</param>
+            <param name="encoding">指定编码</param>
+            <typeparam name="T">指定类型</typeparam>
+            <param name="options">指定配置项</param>
+            <returns>返回指定类型的实例</returns>
+        </member>
+        <member name="T:Swifter.Json.JsonFormatterOptions">
+            <summary>
+            JSON 格式化器配置项。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.Default">
+            <summary>
+            默认配置项。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.LoopReferencingException">
+            <summary>
+            在序列化时出现循环引用的对象将引发异常。该选项不能和其他引用配置复用。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.LoopReferencingNull">
+            <summary>
+            在序列化时出现循环引用的对象将用 Null 表示。该选项不能和其他引用配置复用。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.MultiReferencingNull">
+            <summary>
+            在序列化时出现已序列化的对象时将用 Null 表示。该选项不能和其他引用配置复用。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.MultiReferencingReference">
+            <summary>
+            在序列化和反序列化时允许使用 $ref 写法表示重复引用的对象。该选项不能和其他引用配置复用。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.MultiReferencingOptimizeLayout">
+            <summary>
+            此配置是 <see cref="F:Swifter.Json.JsonFormatterOptions.MultiReferencingNull"/> 和 <see cref="F:Swifter.Json.JsonFormatterOptions.MultiReferencingReference"/> 的可选配置。<br/>
+            此配置将会优化结构布局，使被引用对象始终为最浅层的引用（而不是第一次出现的引用）。<br/>
+            此配置会将浅层对象或数组先遍历保存引用，然再执行序列化和引用检查，性能损耗较大。<br/>
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.MultiReferencingAlsoString">
+            <summary>
+            此配置是 <see cref="F:Swifter.Json.JsonFormatterOptions.MultiReferencingNull"/> 和 <see cref="F:Swifter.Json.JsonFormatterOptions.MultiReferencingReference"/> 的可选配置。<br/>
+            开启此配置将字符串也纳入多引用范畴。<br/>
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.DeflateDeserialize">
+            <summary>
+            执行紧凑（无多余空格）且标准的 JSON 反序列化，此配置有效提高反序列化性能。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.StandardDeserialize">
+            <summary>
+            执行标准的 JSON 反序列化（即 不执行部分验证）。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.VerifiedDeserialize">
+            <summary>
+            执行完全验证的 JSON 反序列化（这是默认行为）。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.EmptyStringAsNull">
+            <summary>
+            反序列化的配置项，当反序列化除字符串和通用类型外的可空类型时，如果 Json 值是 0 长度的字符串，则解析为 <see langword="null"/>。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.EmptyStringAsDefault">
+            <summary>
+            反序列化的配置项，当反序列化除字符串和通用类型外的其他类型时，如果 Json 值是 0 长度的字符串，则解析为 <see langword="default"/>。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.ModifiableOriginal">
+            <summary>
+            反序列化的内部配置项，传入反序列化器的原始内容可以被作为缓存区而修改。<br/>
+            此配置会提高解析字符串的性能，但是原始内容会被破坏。<br/>
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.Indented">
+            <summary>
+            序列化时对 JSON 进行缩进美化。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.OutOfDepthException">
+            <summary>
+            如果启用，在序列化或反序列化时当 Json 结构超出深度限制（<see cref="P:Swifter.Json.JsonFormatter.MaxDepth"/>）则抛出异常。<br/>
+            如果不启用，超出深度限制部分将不会被序列化或反序列化。<br/>
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.UseSystemFloatingPointsMethods">
+            <summary>
+            如果启用，则在序列化和反序列化时，使用 System 命名空间里的浮点数算法，浮点数是 <see cref="T:System.Single"/> 和 <see cref="T:System.Double"/>。<br/>
+            此配置能让浮点数的格式化和解析的结果始终和 ToString 和 Parse 的结果保持一致；<br/>
+            缺点是性能变低，尤其是在早期 .NET 版本为 40 倍性能差，在 Core3.0 下缩减为 4 倍。<br/>
+            默认情况下，Swifter 的浮点数算法在浮点数特别大或特别小时，得出的结果可能和 System 里的算法得出的结果不一致；<br/>
+            这是浮点数的特点之一，在不同的系统，平台，CPU 或算法下都会产生这个问题，这是正常的。<br/>
+            由于早期 .NET 版本的浮点数算法缺陷，导致开启此配置后在浮点数特别大或特别小时，反序列化可能会引发 <see cref="T:System.OverflowException"/> 异常。<br/>
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.CamelCaseWhenSerialize">
+            <summary>
+            序列化对象时，字段名使用驼峰命名法。即：如果字段名首字母为大写，则将首字母写入为小写字母。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.OnFilter">
+            <summary>
+            启用对象字段和值的筛选。<br/>
+            此配置与 <see cref="E:Swifter.Json.JsonFormatter.ObjectFiltering"/> 事件相互影响。<br/>
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.IgnoreNull">
+            <summary>
+            在序列化或反序列化时忽略 Null 值。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.IgnoreZero">
+            <summary>
+            在序列化或反序列化时忽略 0 值。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.IgnoreEmptyString">
+            <summary>
+            在序列化时忽略 ""(空字符串) 值。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonFormatterOptions.ArrayOnFilter">
+            <summary>
+            启用数组元素的筛选。<br/>
+            此配置与 <see cref="E:Swifter.Json.JsonFormatter.ArrayFiltering"/> 事件相互影响。<br/>
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonLoopReferencingException">
+            <summary>
+            Json 序列化时出现循环引用引发的异常信息。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonLoopReferencingException.LoopingObject">
+            <summary>
+            出现循环引用的对象。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonLoopReferencingException.#ctor(Swifter.RW.RWPath,Swifter.RW.RWPath,System.Object)">
+            <summary>
+            构建实例
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonOutOfDepthException">
+            <summary>
+            JSON 序列化或反序列化时结构深度超出最大深度的异常。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonOutOfDepthException.#ctor">
+            <summary>
+            构建实例
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonSegmentedContent">
+            <summary>
+            输入输出分段器
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSegmentedContent.CreateAndInitialize(System.IO.TextReader,Swifter.Tools.HGlobalCache{System.Char})">
+            <summary>
+            创建分段读取器并初始化。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSegmentedContent.#ctor(System.IO.TextReader,Swifter.Tools.HGlobalCache{System.Char},System.Boolean)">
+            <summary>
+            初始化输入分段器。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSegmentedContent.#ctor(System.IO.TextWriter,Swifter.Tools.HGlobalCache{System.Char},System.Boolean)">
+            <summary>
+            初始化输出分段器。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSegmentedContent.WriteSegment">
+            <summary>
+            将缓存中的分段写入到 IO 对象。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSegmentedContent.ReadSegment(System.Int32)">
+            <summary>
+            从 IO 对象中读取分段到缓存中。
+            </summary>
+            <param name="retain">需要保留的字符数</param>
+            <returns>返回新读取的字符数</returns>
+        </member>
+        <member name="T:Swifter.Json.JsonSerializer">
+            <summary>
+            Json 序列化 (写入) 器。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonSerializer.JsonFormatter">
+            <summary>
+            Json 格式化器。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonSerializer.segmenterOrHGCache">
+            <summary>
+            分段写入器 或 全局内存缓存。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonSerializer.MaxDepth">
+            <summary>
+            最大深度限制。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonSerializer.Options">
+            <summary>
+            当前配置项。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonSerializer.Offset">
+            <summary>
+            获取已写入的字符数。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonSerializer.Rest">
+            <summary>
+            获取缓存剩余字符数。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonSerializer.HGCache">
+            <summary>
+            全局内存缓存。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.#ctor(Swifter.Tools.HGlobalCache{System.Char})">
+            <summary>
+            初始化默认配置的 Json 序列号 (写入) 器。
+            </summary>
+            <param name="hGCache">全局内存缓存</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.#ctor(Swifter.Json.JsonFormatter,Swifter.Tools.HGlobalCache{System.Char})">
+            <summary>
+            初始化指定格式化器的 Json 序列号 (写入) 器。
+            </summary>
+            <param name="jsonFormatter">指定格式化器</param>
+            <param name="hGCache">全局内存缓存</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.#ctor(Swifter.Tools.HGlobalCache{System.Char},Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            初始化指定配置的 Json 序列号 (写入) 器。
+            </summary>
+            <param name="hGCache">全局内存缓存</param>
+            <param name="options">指定配置</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.#ctor(Swifter.Json.JsonSegmentedContent,Swifter.Json.JsonFormatterOptions)">
+            <summary>
+            初始化指定配置的 Json 序列号 (写入) 器。
+            </summary>
+            <param name="segmenter">分段读取器</param>
+            <param name="options">指定配置</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.#ctor(Swifter.Json.JsonSegmentedContent)">
+            <summary>
+            初始化默认配置的 Json 序列号 (写入) 器。
+            </summary>
+            <param name="segmenter">分段读取器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.#ctor(Swifter.Json.JsonFormatter,Swifter.Json.JsonSegmentedContent)">
+            <summary>
+            初始化指定格式化器的 Json 序列号 (写入) 器。
+            </summary>
+            <param name="jsonFormatter">指定格式化器</param>
+            <param name="segmenter">分段读取器</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.Create(Swifter.Tools.HGlobalCache{System.Char},Swifter.Json.JsonFormatter,System.IO.TextWriter,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="hGCache"></param>
+            <param name="textWriter"></param>
+            <param name="jsonFormatter"></param>
+            <param name="isAsync"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.Rent(Swifter.Json.JsonFormatter,System.IO.TextWriter,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="jsonFormatter"></param>
+            <param name="textWriter"></param>
+            <param name="isAsync"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.Return(Swifter.Json.JsonSerializer)">
+            <summary>
+            
+            </summary>
+            <param name="jsonSerializer"></param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.Create(Swifter.Tools.HGlobalCache{System.Char},Swifter.Json.JsonFormatterOptions,System.IO.TextWriter,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="hGCache"></param>
+            <param name="options"></param>
+            <param name="textWriter"></param>
+            <param name="isAsync"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.Flush">
+            <summary>
+            将已写入的 JSON 内容长度设置到 HGCache 的内容数量中。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.Clear">
+            <summary>
+            重置 JSON 写入位置。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.MoveOffset(System.Int32)">
+            <summary>
+            移动偏移量。
+            </summary>
+            <param name="moveSize">向后移动的距离，可以是负数。</param>
+            <exception cref="T:System.IndexOutOfRangeException">移动后超出了缓存区区域</exception>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.Grow(System.Int32)">
+            <summary>
+            扩容。
+            </summary>
+            <param name="growMinSize">表示缓存区至少需要的内存空间</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteKeyEnding">
+            <summary>
+            写入一个键结尾符。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteValueEnding">
+            <summary>
+            在写入值之后写入。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.IndentValueBefore">
+            <summary>
+            在写入值之前缩进。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.IndentKeyBefore">
+            <summary>
+            在写入键之前缩进。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.IndentStructAfter">
+            <summary>
+            在写入对象或数组后缩进。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.IndentMiddleChars">
+            <summary>
+            在写入键后之后缩进。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.ToString">
+            <summary>
+            将当前内容转换为字符串。
+            </summary>
+            <exception cref="T:System.NotSupportedException">指定了写入段落回调</exception>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteRaw(System.Int32)">
+            <summary>
+            写入元内容。
+            </summary>
+            <param name="rawContentLength">元内容长度</param>
+            <returns>返回用于写入元内容的内存</returns>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteRaw(System.String)">
+            <summary>
+            写入元内容。
+            </summary>
+            <param name="value">元内容</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.InternalWriteRaw(Swifter.Tools.Ps{System.Char})">
+            <summary>
+            写入元内容。
+            </summary>
+            <param name="value">元内容</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.InternalWriteRaw(System.Char@,System.Int32)">
+            <summary>
+            写入元内容。
+            </summary>
+            <param name="firstChar">元内容首个字符引用</param>
+            <param name="length">元内容长度</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteNull">
+            <summary>
+            写入一个 <see langword="null"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.DirectWrite(System.Object)">
+            <summary>
+            直接写入一个基础类型的值。
+            </summary>
+            <remarks>
+            注意: 此方法不支持写入复杂类型 (如: 对象类型或数组类型) 的值。
+            </remarks>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteValue``1(``0)">
+            <summary>
+            写入一个已知类型的值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteEnum``1(``0)">
+            <summary>
+            写入一个枚举值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WritePath(Swifter.RW.RWPath)">
+            <summary>
+            写入一个路径。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteBoolean(System.Boolean)">
+            <summary>
+            写入一个 <see cref="T:System.Boolean"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteByte(System.Byte)">
+            <summary>
+            写入一个 <see cref="T:System.Byte"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteChar(System.Char)">
+            <summary>
+            写入一个 <see cref="T:System.Char"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteDateTime(System.DateTime)">
+            <summary>
+            写入一个 <see cref="T:System.DateTime"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteDecimal(System.Decimal)">
+            <summary>
+            写入一个 <see cref="T:System.Decimal"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteDouble(System.Double)">
+            <summary>
+            写入一个 <see cref="T:System.Double"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteInt16(System.Int16)">
+            <summary>
+            写入一个 <see cref="T:System.Int16"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteInt32(System.Int32)">
+            <summary>
+            写入一个 <see cref="T:System.Int32"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteInt64(System.Int64)">
+            <summary>
+            写入一个 <see cref="T:System.Int64"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteSByte(System.SByte)">
+            <summary>
+            写入一个 <see cref="T:System.SByte"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteSingle(System.Single)">
+            <summary>
+            写入一个 <see cref="T:System.Single"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteUInt16(System.UInt16)">
+            <summary>
+            写入一个 <see cref="T:System.UInt16"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteUInt32(System.UInt32)">
+            <summary>
+            写入一个 <see cref="T:System.UInt32"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteUInt64(System.UInt64)">
+            <summary>
+            写入一个 <see cref="T:System.UInt64"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteGuid(System.Guid,System.Boolean)">
+            <summary>
+            写入一个 <see cref="T:System.Guid"/> 值。
+            </summary>
+            <param name="value">值</param>
+            <param name="withSeparators">是否包含分隔符</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteGuid(System.Guid)">
+            <summary>
+            写入一个 <see cref="T:System.Guid"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteDateTimeOffset(System.DateTimeOffset)">
+            <summary>
+            写入一个 <see cref="T:System.DateTimeOffset"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteTimeSpan(System.TimeSpan)">
+            <summary>
+            写入一个 <see cref="T:System.TimeSpan"/> 值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteArray(Swifter.RW.IDataReader{System.Int32})">
+            <summary>
+            写入一个数组。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteArray``1(``0[])">
+            <summary>
+            写入一个数组。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteList``1(System.Collections.Generic.List{``0})">
+            <summary>
+            写入一个列表。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteArray``1(``0@,System.Int32)">
+            <summary>
+            写入一个数组。
+            </summary>
+            <param name="firstElement">第一个元素引用</param>
+            <param name="length">长度</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteObject(Swifter.RW.IDataReader{System.String})">
+            <summary>
+            写入一个对象。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteBeginObject">
+            <summary>
+            写入对象开头。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteEndObject">
+            <summary>
+            写入对象结尾。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteBeginArray">
+            <summary>
+            写入数组开头。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteEndArray">
+            <summary>
+            写入数组结尾。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WritePropertyName(System.String)">
+            <summary>
+            写入一个属性名。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.InternalWritePropertyName(Swifter.Tools.Ps{System.Char})">
+            <summary>
+            写入一个属性名。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.InternalWritePropertyName(System.Char@,System.Int32)">
+            <summary>
+            写入一个属性名。
+            </summary>
+            <param name="firstChar">属性名首个引用</param>
+            <param name="length">属性名长度</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteString(System.String)">
+            <summary>
+            写入一个字符串。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.InternalWriteString(Swifter.Tools.Ps{System.Char},System.Boolean)">
+            <summary>
+            写入一个字符串。
+            </summary>
+            <param name="value">字符串</param>
+            <param name="withCamelCase">是否以驼峰命名法写入</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.InternalWriteString(System.Char@,System.Int32,System.Boolean)">
+            <summary>
+            写入一个字符串。
+            </summary>
+            <param name="firstChar">字符串首个字符引用</param>
+            <param name="length">字符串长度</param>
+            <param name="withCamelCase">是否以驼峰命名法写入</param>
+        </member>
+        <member name="M:Swifter.Json.JsonSerializer.WriteReference(Swifter.RW.RWPath)">
+            <summary>
+            写入一个引用值。
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonToken">
+            <summary>
+            表示 JSON 值的 Token。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Object">
+            <summary>
+            表示一个对象值。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Array">
+            <summary>
+            表示一个数组值。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Boolean">
+            <summary>
+            表示一个 Boolean 值，包括 True 和 False。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Null">
+            <summary>
+            表示一个空值，包括 Null 和 Undefined。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Number">
+            <summary>
+            表示一个数值，包括整数和浮点数。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.String">
+            <summary>
+            表示一个字符串值，包括双引号和单引号。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Comment">
+            <summary>
+            表示一个注释，包括单行注释和多行注释。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Reference">
+            <summary>
+            表示一个引用。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.End">
+            <summary>
+            这不表示一个值，而是表示一个 JSON 的结尾。
+            </summary>
+        </member>
+        <member name="F:Swifter.Json.JsonToken.Other">
+            <summary>
+            其他值，非上述的任何其他值。
+            </summary>
+        </member>
+        <member name="T:Swifter.Json.JsonValue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.From``1(``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.IsArray">
+            <summary>
+            获取这个 Json 值是否为数组。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.IsObject">
+            <summary>
+            获取这个 Json 值是否为对象。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.IsValue">
+            <summary>
+            获取这个 Json 值是否是一个基础值（数字，字符串，布尔，Null）。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Value">
+            <summary>
+            获取这个基础值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Token">
+            <summary>
+            获取这个 JSON 值的 Token 类型。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Length">
+            <summary>
+            获取这个 JSON 数组或对象的长度。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Item(System.Int32)">
+            <summary>
+            获取或设置这个 JSON 数组指定索引处的元素值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Item(System.String)">
+            <summary>
+            获取或设置这个 JSON 对象指定键的元素值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.Add(Swifter.Json.JsonValue)">
+            <summary>
+            为这个 JSON 数组添加元素值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.Add(System.String,Swifter.Json.JsonValue)">
+            <summary>
+            为这个 JSON 对象添加元素键值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.RemoveAt(System.Int32)">
+            <summary>
+            移除这个 JSON 数组指定索引处的元素值。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.Remove(System.String,Swifter.Json.JsonValue@)">
+            <summary>
+            移除这个 JSON 对象指定键的元素键值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.BooleanValue">
+            <summary>
+            获取这个 Json 值的布尔形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.CharValue">
+            <summary>
+            获取这个 Json 值的字符形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.SByteValue">
+            <summary>
+            获取这个 Json 值的有符号字节形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.ByteValue">
+            <summary>
+            获取这个 Json 值的无符号字节形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Int16Value">
+            <summary>
+            获取这个 Json 值的 16 位有符号整数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.UInt16Value">
+            <summary>
+            获取这个 Json 值的 16 位无符号整数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Int32Value">
+            <summary>
+            获取这个 Json 值的 32 位有符号整数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.UInt32Value">
+            <summary>
+            获取这个 Json 值的 32 位无符号整数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Int64Value">
+            <summary>
+            获取这个 Json 值的 64 位有符号整数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.UInt64Value">
+            <summary>
+            获取这个 Json 值的 64 位无符号整数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.SingleValue">
+            <summary>
+            获取这个 Json 值的单精度浮点数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.DoubleValue">
+            <summary>
+            获取这个 Json 值的双精度浮点数形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.DecimalValue">
+            <summary>
+            获取这个 Json 值的十进制数字形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.DateTimeValue">
+            <summary>
+            获取这个 Json 值的日期形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.StringValue">
+            <summary>
+            获取这个 Json 值的字符串形式值。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Values">
+            <summary>
+            获取这个数组或对象的值集合。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.Keys">
+            <summary>
+            获取这个对象的键集合。
+            </summary>
+        </member>
+        <member name="P:Swifter.Json.JsonValue.KeyValuePairs">
+            <summary>
+            获取这个对象的键值对集合。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.Equals(Swifter.Json.JsonValue)">
+            <summary>
+            比较两个 JSON 值是否一致。
+            </summary>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.ToString">
+            <summary>
+            获取这个 JSON 值的 JSON 表现形式。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Swifter.Json.JsonValue.GetMetaObject(System.Linq.Expressions.Expression)">
+            <summary>
+            获取动态元对象。
+            </summary>
+        </member>
+    </members>
+</doc>

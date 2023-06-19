@@ -1,0 +1,62 @@
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\tianchi.exe.config
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\tianchi.exe
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\tianchi.pdb
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\LitJSON.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\ShellProgressBar.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Buffers.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Memory.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Numerics.Vectors.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Encoding.CodePages.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Encodings.Web.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Json.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Threading.Tasks.Extensions.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.ValueTuple.dll
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\ShellProgressBar.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Buffers.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Memory.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Numerics.Vectors.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Encodings.Web.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Json.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.Threading.Tasks.Extensions.xml
+C:\Users\14246\Documents\MyProject\tianchi\bin\x64\Release\System.ValueTuple.xml
+C:\Users\14246\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.AssemblyReference.cache
+C:\Users\14246\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.SuggestedBindingRedirects.cache
+C:\Users\14246\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.CoreCompileInputs.cache
+C:\Users\14246\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.CopyComplete
+C:\Users\14246\Documents\MyProject\tianchi\obj\x64\Release\tianchi.exe
+C:\Users\14246\Documents\MyProject\tianchi\obj\x64\Release\tianchi.pdb
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\tianchi.exe.config
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\tianchi.exe
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\tianchi.pdb
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\LitJSON.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\ShellProgressBar.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Buffers.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Memory.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Numerics.Vectors.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Runtime.CompilerServices.Unsafe.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Encoding.CodePages.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Encodings.Web.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Json.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Threading.Tasks.Extensions.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.ValueTuple.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\ShellProgressBar.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Buffers.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Memory.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Numerics.Vectors.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Runtime.CompilerServices.Unsafe.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Encodings.Web.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Text.Json.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.Threading.Tasks.Extensions.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Release\System.ValueTuple.xml
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.AssemblyReference.cache
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.SuggestedBindingRedirects.cache
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.CoreCompileInputs.cache
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Release\tianchi.csproj.CopyComplete
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Release\tianchi.exe
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Release\tianchi.pdb

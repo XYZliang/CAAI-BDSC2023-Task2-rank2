@@ -1,0 +1,10 @@
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Debug\tianchi.exe.config
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Debug\tianchi.exe
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Debug\tianchi.pdb
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\bin\x64\Debug\LitJSON.dll
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Debug\tianchi.csproj.AssemblyReference.cache
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Debug\tianchi.csproj.SuggestedBindingRedirects.cache
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Debug\tianchi.csproj.CoreCompileInputs.cache
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Debug\tianchi.csproj.CopyComplete
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Debug\tianchi.exe
+G:\OneDrive\OneDrive - XYZliang\Documents\MyProject\tianchi\obj\x64\Debug\tianchi.pdb
