@@ -876,7 +876,7 @@ namespace tianchi
                     // 开始遍历用户id1的相似用户列表
 
                     // 初始化一些变量
-                    double r = 0, sir = 1, fir = 1, kir = 0, expN = 0.1;
+                    double r = 0, sir = 1, fir = 1, kir = 0, expN = 0.08;
 
                     if (dataLF.ContainsKey(id1) && dataLF[id1].ContainsKey(fid))
                     {
@@ -1056,7 +1056,7 @@ namespace tianchi
                 {
                     // 对每个在id1的相似用户列表中的用户fid进行操作
 
-                    double r = 0, sir = 1, fir = 1, kir = 0, expN = 0.1;
+                    double r = 0, sir = 1, fir = 1, kir = 0, expN = 0.08;
                     // 初始化一些将要使用的变量，r用来存储最后的预测结果，sir和fir将用来存储商品信息和网络关系的加权值，kir存储邻居二次转发的信息，expN是指数分布的参数
 
                     if (dataLF.ContainsKey(id1) && dataLF[id1].ContainsKey(fid))
