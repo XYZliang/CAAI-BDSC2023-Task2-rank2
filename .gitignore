@@ -3,3 +3,5 @@ item_share_train_info.json
 confList.txt
 __pycache__
 data/item_share_train_info_AB.json
+tianchi.zip
+bin/x64/Release/data/item_share_train_info_AB.json

@@ -49,20 +49,20 @@ qpython:S117"YRename this local variable "userInfo" to match the regular ex
 upython:S117ş"]Rename this local variable "userjsonData" to match the regular expression ^[_a-z][a-z0-9_]*$.(ËÕœ
 rpython:S117¥"ZRename this local variable "usersMini" to match the regular expression ^[_a-z][a-z0-9_]*$.(®§È
 ~python:S117‚"aRename this local variable "verificationData" to match the regular expression ^[_a-z][a-z0-9_]*$.(ë§Åÿÿÿÿÿ
-Apython:S1481Ó"(Remove the unused local variable "rsim".(ŞµŒø
-Cpython:S1481Ï"*Remove the unused local variable "ktotal".(ñŒÏ½
-Gpython:S1481Ô")Remove the unused local variable "ritem".(¢±óÍıÿÿÿÿ
-Jpython:S1481 ",Remove the unused local variable "isChange".(ÂÖÁûÿÿÿÿ
 Cpython:S1481—"%Remove the unused local variable "n".(‘£ë…ÿÿÿÿÿ
-?python:S1481–"&Remove the unused local variable "kx".(‰“Ûß
-Dpython:S1481—"&Remove the unused local variable "kn".( Ö¼Ãûÿÿÿÿ
-]python:S1481£"?Remove the unused local variable "userGenderAverageOneHotCode".(¤¡ä×ùÿÿÿÿ
+Cpython:S1481Ï"*Remove the unused local variable "ktotal".(ñŒÏ½
 apython:S1481 "IRemove the unused local variable "userGenderAgeClassSimilarityWeighting".(‡ÙK
+Gpython:S1481Ô")Remove the unused local variable "ritem".(¢±óÍıÿÿÿÿ
+@python:S1481Ò"'Remove the unused local variable "tsp".(¿ÎØÆ
+Fpython:S1481Õ"-Remove the unused local variable "rresponse".(ê±‘
+Jpython:S1481 ",Remove the unused local variable "isChange".(ÂÖÁûÿÿÿÿ
+Gpython:S1481")Remove the unused local variable "data2".(åúÚ–şÿÿÿÿ
+Apython:S1481Ó"(Remove the unused local variable "rsim".(ŞµŒø
+?python:S1481–"&Remove the unused local variable "kx".(‰“Ûß
 Epython:S1481Î"'Remove the unused local variable "mmr".(ıÛ·›şÿÿÿÿ
 Cpython:S1481˜"%Remove the unused local variable "k".( ¡ğÏÿÿÿÿÿ
-@python:S1481Ò"'Remove the unused local variable "tsp".(¿ÎØÆ
-Gpython:S1481")Remove the unused local variable "data2".(åúÚ–şÿÿÿÿ
-Fpython:S1481Õ"-Remove the unused local variable "rresponse".(ê±‘
+]python:S1481£"?Remove the unused local variable "userGenderAverageOneHotCode".(¤¡ä×ùÿÿÿÿ
+Dpython:S1481—"&Remove the unused local variable "kn".( Ö¼Ãûÿÿÿÿ
 npython:S3776Õ"URefactor this function to reduce its Cognitive Complexity from 160 to the 15 allowed.(ì»¤â
 7python:S125"Remove this commented out code.(âÍ·
 <python:S125¶"Remove this commented out code.(‚„Äøÿÿÿÿ

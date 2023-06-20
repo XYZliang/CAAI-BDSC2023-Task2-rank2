@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -1015,7 +1015,7 @@ namespace tianchi
                         // 如果id1的所有邻居中，类别"L"包含fid，进行类似的操作，但这次不包含rkdt
 
                         r *= rsim * resneigbor;
-                        r *= Math.Pow(expN * responseitems[fid].Count,0.5);
+                        r *=expN * responseitems[fid].Count;
 
                         if (!scorL.ContainsKey(-r)) scorL.Add(-r, new List<string>());
                         scorL[-r].Add(fid);
@@ -1024,7 +1024,7 @@ namespace tianchi
                     {
                         // 如果id1的所有邻居中，类别"FF"或"LF"包含fid，进行类似的操作，但这次不包含rsim
 
-                        r *= Math.Pow(expN * responseitems[fid].Count, 0.5);
+                        r *= expN * responseitems[fid].Count;
 
                         if (!scorX.ContainsKey(-r)) scorX.Add(-r, new List<string>());
                         scorX[-r].Add(fid);
@@ -1033,7 +1033,7 @@ namespace tianchi
                     {
                         // 如果id1的所有邻居中，类别"XF"包含fid，进行类似的操作，这次也不包含rsim
 
-                        r *= Math.Pow(expN * responseitems[fid].Count, 0.5);
+                        r *= expN * responseitems[fid].Count;
 
                         if (!scorXF.ContainsKey(-r)) scorXF.Add(-r, new List<string>());
                         scorXF[-r].Add(fid);
@@ -1042,7 +1042,7 @@ namespace tianchi
                     {
                         // 如果id1的所有邻居中没有包含fid，进行类似的操作，这次也不包含rsim
 
-                        r *= Math.Pow(expN * responseitems[fid].Count, 0.5);
+                        r *= expN * responseitems[fid].Count;
 
                         if (!scor.ContainsKey(-r)) scor.Add(-r, new List<string>());
                         scor[-r].Add(fid);
@@ -1055,6 +1055,7 @@ namespace tianchi
                 foreach (var fid in users[id1].SimFusers.Keys)
                 {
                     // 对每个在id1的相似用户列表中的用户fid进行操作
+
                     double r = 0, sir = 1, fir = 1, kir = 0, expN = 0.1;
                     // 初始化一些将要使用的变量，r用来存储最后的预测结果，sir和fir将用来存储商品信息和网络关系的加权值，kir存储邻居二次转发的信息，expN是指数分布的参数
 
@@ -1123,7 +1124,7 @@ namespace tianchi
 
                     // 下面的几行代码在调整r的大小后，将r添加到相应的字典中，字典的键是-r，值是一个包含fid的列表，添加到的字典取决于id1的邻居类型
                     r *= Math.Exp(-2 * userfreq[fid]) * Math.Exp(2 * usertimes[fid]);
-                    r *= Math.Pow(expN * responseitems[fid].Count, 0.5);
+                    r *= expN * responseitems[fid].Count;
                     if (allNeigbors[id1]["LF"].Contains(fid) || allNeigbors[id1]["FF"].Contains(fid))
                     {
                         //rsim=0

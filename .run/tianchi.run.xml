@@ -13,7 +13,7 @@
     <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
     <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="0" />
     <option name="PROJECT_KIND" value="Console" />
-    <option name="PROJECT_TFM" value=".NETFramework,Version=v4.8" />
+    <option name="PROJECT_TFM" value=".NETFramework,Version=v4.7.2" />
     <method v="2">
       <option name="Build" />
     </method>

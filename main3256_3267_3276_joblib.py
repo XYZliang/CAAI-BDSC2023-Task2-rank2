@@ -218,10 +218,10 @@ def main(verification=False, percentage=0.15, savaPath="./output/result/", Hyper
         print("验证模式，输出文件目录已重定向为：" + savaPath)
     # 文件路径
     file_paths = {
-        "分享数据": "./data/item_share_train_info.json",
+        "分享数据": "./data/item_share_train_info_AB.json",
         "商品数据": "./data/item_info.json",
         "用户数据": "./data/user_info.json",
-        "测试数据": "./data/item_share_preliminary_test_info.json",
+        "测试数据": "./data/item_share_test_info_B.json",
     }
 
     # 慢速加载数据，但有序（python>3.7）
