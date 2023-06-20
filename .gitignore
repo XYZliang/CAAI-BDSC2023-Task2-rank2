@@ -2,3 +2,4 @@ df.csv
 item_share_train_info.json
 confList.txt
 __pycache__
+data/item_share_train_info_AB.json
