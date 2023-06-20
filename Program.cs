@@ -64,6 +64,11 @@ public class UserIDInfo
 
     // 性别的独热编码
     public double[] GenderOneHot { get; set; }
+    
+    // 分享的次数
+    public int ShareCount { get; set; }
+    // 回流的次数
+    public int ResponseCount { get; set; }
 
     // 该用户分享过的用户
     public Dictionary<string, List<DateTime>> Neighbor { get; set; }
@@ -111,10 +116,21 @@ namespace tianchi
         }
         private void NewSumbit()
         {
-            var shareDataPath = @"./data/item_share_train_info_09.json"; //定义商品分享数据文件的路径
+            var ver = true;
+            var shareDataPath = "";
+            var testDataPath = "";
             var itemDataPath = @"./data/item_info.json"; //定义商品信息数据文件的路径
             var userDataPath = @"./data/user_info.json"; //定义用户信息数据文件的路径
-            var testDataPath = @"./data/item_share_train_info_test_01.json"; //定义测试数据文件的路径
+            if(ver)
+            {
+                shareDataPath = @"./data/item_share_train_info_09.json"; //定义商品分享数据文件的路径
+                testDataPath = @"./data/item_share_train_info_test_01.json"; //定义测试数据文件的路径
+            }
+            else 
+            { 
+            shareDataPath = @"./data/item_share_train_info_AB.json"; //定义商品分享数据文件的路径
+            testDataPath = @"./data/item_share_test_info_B.json"; //定义测试数据文件的路径
+            }
             var jsonData = JsonMapper.ToObject(System.IO.File.ReadAllText(shareDataPath)); //读取并解析商品分享数据文件
             var itemjsonData = JsonMapper.ToObject(System.IO.File.ReadAllText(itemDataPath)); //读取并解析商品信息数据文件
             var userjsonData = JsonMapper.ToObject(System.IO.File.ReadAllText(userDataPath)); //读取并解析用户信息数据文件
@@ -189,6 +205,8 @@ namespace tianchi
                 users[id1].ItemID = new HashSet<string>(); //初始化集合，存储用户的项目id信息
                 users[id1].responseTimeZone = new Dictionary<int, double>(); //初始化字典，存储用户的响应时间区信息
                 users[id1].StaticSimUsers = new Dictionary<string, double>(); //初始化字典，存储用户的静态相似用户信息
+                users[id1].ShareCount = 0; //初始化用户的分享次数为0
+                users[id1].ResponseCount = 0; //初始化用户的响应次数为0
                 netrelation.Add(id1, new Dictionary<string, Dictionary<int, Dictionary<string, double>>>()); //初始化嵌套字典，存储网络关系信息
                 responseitems.Add(id1, new Dictionary<string, HashSet<string>>()); //初始化嵌套字典，存储响应项目信息
                 sharerank.Add(id1, new Dictionary<string, double>()); //初始化字典，存储分享排名信息
@@ -224,7 +242,7 @@ namespace tianchi
                 itemreceive.Add(itemid, new Dictionary<string, HashSet<string>>()); //初始化嵌套字典，存储商品接收信息
                 //ItemAll.Add(itemid,new SortedDictionary<DateTime, List<Tuple<string, string>>>()); //此行代码被注释掉，本来用于初始化嵌套字典，存储商品所有信息
             }
-
+            
             // 此段代码主要用于处理训练数据。在遍历训练数据的过程中，它会提取每个JSON对象中的user_id, item_id, voter_id, 和timestamp，
             // 并使用这些信息来创建LinkInfo对象。然后，根据这些信息，它会更新多个字典结构，这些字典结构用于保存不同类型的用户和商品信息，
             // 如回应时间，排名，分享数，回应数，活跃数和分类信息。这段代码使用了特征工程的方法，
@@ -232,10 +250,10 @@ namespace tianchi
             // 这些信息将用于预测阶段。
             foreach (JsonData temp in jsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 训练数据...")) //遍历训练数据
             {
-                var user_id = temp[0]; //提取用户id
-                var item_id = temp[1]; //提取物品id
-                var voter_id = temp[2]; //提取投票者id
-                var timestamp = temp[3]; //提取时间戳
+                var user_id = temp["inviter_id"]; //提取用户id
+                var item_id = temp["item_id"]; //提取物品id
+                var voter_id = temp["voter_id"]; //提取投票者id
+                var timestamp = temp["timestamp"]; //提取时间戳
                 lk = new LinkInfo(); //创建新的LinkInfo实例
                 id1 = lk.UserID = user_id.ToString(); //将用户id转换为字符串并赋值给UserID
                 item = lk.ItemID = item_id.ToString(); //将物品id转换为字符串并赋值给ItemID
@@ -246,7 +264,9 @@ namespace tianchi
                 responstimeAllitems[id2][item].Add(dt); //在回应时间列表中添加时间戳
                 if (!data.ContainsKey(dt)) data.Add(dt, new List<LinkInfo>()); //如果数据中没有该时间，就添加
                 data[dt].Add(lk); //在数据中添加LinkInfo对象
-
+                // 记录分享/回流数量
+                users[user_id.ToString()].ShareCount++; //用户分享数加1
+                users[voter_id.ToString()].ResponseCount++; //将时间戳添加到用户回应时间列表中
                 if (!ranks.ContainsKey(id1))
                     ranks.Add(id1, new Dictionary<string, SortedDictionary<DateTime, List<string>>>()); //如果排名中没有该用户，就添加
                 if (!ranks[id1].ContainsKey(item)) ranks[id1].Add(item, new SortedDictionary<DateTime, List<string>>()); //如果用户中没有该物品，就添加
@@ -283,7 +303,41 @@ namespace tianchi
 
                 ++n; //增加计数器
             }
-
+            
+            // 记录所有用户的分享数量、回流数
+            var shareTime = new List<int>();
+            var responseTime = new List<int>();
+            // 记录比值
+            var shareResponseRatio = new List<double>();
+            // 记录全不为0的数量
+            foreach(var userInfo in users.Values.WithProgressBar("记录所有用户的分享数量、回流数..."))
+            {
+                if(userInfo.ShareCount!=0)
+                    shareTime.Add(userInfo.ShareCount);
+                if(userInfo.ResponseCount!=0)
+                    responseTime.Add(userInfo.ResponseCount);
+                if(userInfo.ShareCount!=0 && userInfo.ResponseCount!=0)
+                    shareResponseRatio.Add((double)userInfo.ResponseCount/userInfo.ShareCount);
+            }
+            // 获取中位数
+            shareTime.Sort();
+            responseTime.Sort();
+            shareResponseRatio.Sort();
+            var shareMedian = shareTime[shareTime.Count / 2];
+            var responseMedian = responseTime[responseTime.Count / 2];
+            var shrerMedian = shareResponseRatio[shareResponseRatio.Count / 2];
+            Console.WriteLine("中位数：{0} {1} {2}", shareMedian, responseMedian, shrerMedian);
+            // 获取平均数
+            var shareMean = shareTime.Average();
+            var responseMean = responseTime.Average();
+            var shareMeanRatio = shareResponseRatio.Average();
+            Console.WriteLine("平均数：{0} {1} {2}", shareMean, responseMean, shareMeanRatio);
+            // 统计为0的数量
+            var shareZero = shareTime.Count(x => x == 0);
+            var responseZero = responseTime.Count(x => x == 0);
+            Console.WriteLine("为0的数量：{0} {1}", shareZero, responseZero);
+            // 输出总长度
+            Console.WriteLine("总长度：{0} {1} {2}", shareTime.Count, responseTime.Count, shareResponseRatio.Count);
 
             jsonData.Clear();
             userjsonData.Clear();
@@ -664,10 +718,10 @@ namespace tianchi
                 //}
 
                 // 更新进度条
-                if (++kx % 100 == 0) Text = kx.ToString() + "  " + kn.ToString();
+                // if (++kx % 100 == 0) Text = kx.ToString() + "  " + kn.ToString();
 
                 // 刷新应用
-                Application.DoEvents();
+                // Application.DoEvents();
 
                 // 为当前用户初始化相似的用户集
                 users[iid].SimLusers = new Dictionary<string, double>();
@@ -737,7 +791,7 @@ namespace tianchi
             // 通过对用户的分类信息进行详细的统计和记录，可以为预测模型提供更全面的数据，进而提高预测的准确性。
             // 创建一个用于存储不同数量的字典
             var diffnum = new Dictionary<int, int>();
-            // 设置候选数量为6
+            // 设置候选数量为5
             var candNum = 6;
             // 创建一个记录添加数量的字典
             var AddNum = new Dictionary<string, Dictionary<string, int>>();
@@ -762,7 +816,7 @@ namespace tianchi
                     usersClassNum[xid].Add(id, userclassinfo[xid][id].Values.Sum());
             }
             // 创建一个变量ch
-            var ch = 0;
+            // var ch = 0;
             // 创建一个新的HashSet用于存储布尔用户
             var boolusers = new HashSet<string>();
 
@@ -774,10 +828,10 @@ namespace tianchi
             // 遍历测试数据集
             foreach (JsonData testdata in testjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 结果输出..."))
             {
-                // 每处理100条数据更新一次显示的文本
-                if (++ch % 100 == 0) Text = ch.ToString();
-                // 进行界面更新
-                Application.DoEvents();
+                // // 每处理100条数据更新一次显示的文本
+                // if (++ch % 100 == 0) Text = ch.ToString();
+                // // 进行界面更新
+                // Application.DoEvents();
                 // 创建一个结果列表
                 var res = new List<string>();
                 // 创建一个链接信息的对象
@@ -820,7 +874,7 @@ namespace tianchi
                     // 将用户ID添加到处理过的用户集合中
                     boolusers.Add(id1);
                     // 进行界面更新
-                    Application.DoEvents();
+                    // Application.DoEvents();
                     // 创建一个字典用于保存反向用户信息
                     var backuser = new Dictionary<string, Dictionary<string, double>>();
                     // 遍历每个类别
@@ -985,8 +1039,16 @@ namespace tianchi
                         // 计算ritem，基于测试日期和it之间的时间差，权重为0.06
                     }
 
+                    var rRatio = 1.0;
+                    if (users[fid].ResponseCount != 0 && users[fid].ShareCount != 0)
+                    {
+                        double fidRatio = 1.0 * users[fid].ResponseCount / users[fid].ShareCount;
+                        //rRatio = Math.Pow(fidRatio/shrerMedian,0.5);
+                        //rRatio = Math.Exp(fidRatio / shrerMedian);
+                        rRatio = fidRatio / shrerMedian;
+                    }
 
-                    r = sir * ritem * users[id1].SimLusers[fid] * users[fid].Level * 0.1; // 计算一个预测值，根据各种已经计算出的变量
+                    r = sir * ritem * users[id1].SimLusers[fid] * users[fid].Level * 0.1 *rRatio; // 计算一个预测值，根据各种已经计算出的变量
                     r = r * fir * kir; // 继续根据其他变量调整预测值
                     if (sharerank[id1].ContainsKey(fid)) r *= sharerank[id1][fid]; // 如果sharerank字典中包含对应键值对，继续调整预测值
                     else r *= 0.000000001; // 如果不包含，则乘以一个极小的值
