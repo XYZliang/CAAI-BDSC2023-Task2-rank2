@@ -64,11 +64,6 @@ public class UserIDInfo
 
     // 性别的独热编码
     public double[] GenderOneHot { get; set; }
-    
-    // 分享的次数
-    public int ShareCount { get; set; }
-    // 回流的次数
-    public int ResponseCount { get; set; }
 
     // 该用户分享过的用户
     public Dictionary<string, List<DateTime>> Neighbor { get; set; }
@@ -116,7 +111,7 @@ namespace tianchi
         }
         private void NewSumbit()
         {
-            var ver = true;
+            var ver = false;
             var shareDataPath = "";
             var testDataPath = "";
             var itemDataPath = @"./data/item_info.json"; //定义商品信息数据文件的路径
@@ -151,6 +146,7 @@ namespace tianchi
             var ranks = new Dictionary<string, Dictionary<string, SortedDictionary<DateTime, List<string>>>>(); //初始化一个嵌套字典结构，记录商品的排名信息
             Dictionary<string, HashSet<string>> sharenum = new Dictionary<string, HashSet<string>>(), responseall = new Dictionary<string, HashSet<string>>(); //初始化两个字典，分别记录商品分享次数和所有的响应信息
             var responsenum = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录用户响应次数信息
+            var responseeach = new Dictionary<string, Dictionary<string, Dictionary<string,int>>>();
             var activenum = new Dictionary<string, double>(); //初始化一个字典，记录用户活跃数信息
             var allNeigbors = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录所有邻居信息
             var sharetimes = new Dictionary<string, int>(); //初始化一个字典，记录商品分享次数信息
@@ -205,8 +201,6 @@ namespace tianchi
                 users[id1].ItemID = new HashSet<string>(); //初始化集合，存储用户的项目id信息
                 users[id1].responseTimeZone = new Dictionary<int, double>(); //初始化字典，存储用户的响应时间区信息
                 users[id1].StaticSimUsers = new Dictionary<string, double>(); //初始化字典，存储用户的静态相似用户信息
-                users[id1].ShareCount = 0; //初始化用户的分享次数为0
-                users[id1].ResponseCount = 0; //初始化用户的响应次数为0
                 netrelation.Add(id1, new Dictionary<string, Dictionary<int, Dictionary<string, double>>>()); //初始化嵌套字典，存储网络关系信息
                 responseitems.Add(id1, new Dictionary<string, HashSet<string>>()); //初始化嵌套字典，存储响应项目信息
                 sharerank.Add(id1, new Dictionary<string, double>()); //初始化字典，存储分享排名信息
@@ -264,9 +258,6 @@ namespace tianchi
                 responstimeAllitems[id2][item].Add(dt); //在回应时间列表中添加时间戳
                 if (!data.ContainsKey(dt)) data.Add(dt, new List<LinkInfo>()); //如果数据中没有该时间，就添加
                 data[dt].Add(lk); //在数据中添加LinkInfo对象
-                // 记录分享/回流数量
-                users[user_id.ToString()].ShareCount++; //用户分享数加1
-                users[voter_id.ToString()].ResponseCount++; //将时间戳添加到用户回应时间列表中
                 if (!ranks.ContainsKey(id1))
                     ranks.Add(id1, new Dictionary<string, SortedDictionary<DateTime, List<string>>>()); //如果排名中没有该用户，就添加
                 if (!ranks[id1].ContainsKey(item)) ranks[id1].Add(item, new SortedDictionary<DateTime, List<string>>()); //如果用户中没有该物品，就添加
@@ -275,6 +266,11 @@ namespace tianchi
                 sharenum[id1].Add(item); //在分享数中添加物品id
                 if (!responsenum[id1].ContainsKey(id2)) responsenum[id1].Add(id2, new HashSet<string>()); //如果回应数中没有该投票者，就添加
                 responsenum[id1][id2].Add(item); //在指定投票者中添加物品id
+                // var responseeach = new Dictionary<string, Dictionary<string, Dictionary<string,int>>>();
+                if(!responseeach.ContainsKey(id1)) responseeach.Add(id1, new Dictionary<string, Dictionary<string, int>>()); //初始化嵌套字典，存储响应数量信息
+                if (!responseeach[id1].ContainsKey(id2)) responseeach[id1].Add(id2,new Dictionary<string, int>()); //如果回应数中没有该投票者，就添加
+                if(!responseeach[id1][id2].ContainsKey(item)) responseeach[id1][id2].Add(item,1); //如果指定投票者中没有该物品，就添加
+                else responseeach[id1][id2][item] += 1; //否则在指定投票者和物品中增加回应数
                 activenum[id2] += 1; //增加投票者活动数
 
                 classtype["Brand"] = itemsinfo[item].BrandId; //获取商品的品牌id
@@ -304,40 +300,6 @@ namespace tianchi
                 ++n; //增加计数器
             }
             
-            // 记录所有用户的分享数量、回流数
-            var shareTime = new List<int>();
-            var responseTime = new List<int>();
-            // 记录比值
-            var shareResponseRatio = new List<double>();
-            // 记录全不为0的数量
-            foreach(var userInfo in users.Values.WithProgressBar("记录所有用户的分享数量、回流数..."))
-            {
-                if(userInfo.ShareCount!=0)
-                    shareTime.Add(userInfo.ShareCount);
-                if(userInfo.ResponseCount!=0)
-                    responseTime.Add(userInfo.ResponseCount);
-                if(userInfo.ShareCount!=0 && userInfo.ResponseCount!=0)
-                    shareResponseRatio.Add((double)userInfo.ResponseCount/userInfo.ShareCount);
-            }
-            // 获取中位数
-            shareTime.Sort();
-            responseTime.Sort();
-            shareResponseRatio.Sort();
-            var shareMedian = shareTime[shareTime.Count / 2];
-            var responseMedian = responseTime[responseTime.Count / 2];
-            var shrerMedian = shareResponseRatio[shareResponseRatio.Count / 2];
-            Console.WriteLine("中位数：{0} {1} {2}", shareMedian, responseMedian, shrerMedian);
-            // 获取平均数
-            var shareMean = shareTime.Average();
-            var responseMean = responseTime.Average();
-            var shareMeanRatio = shareResponseRatio.Average();
-            Console.WriteLine("平均数：{0} {1} {2}", shareMean, responseMean, shareMeanRatio);
-            // 统计为0的数量
-            var shareZero = shareTime.Count(x => x == 0);
-            var responseZero = responseTime.Count(x => x == 0);
-            Console.WriteLine("为0的数量：{0} {1}", shareZero, responseZero);
-            // 输出总长度
-            Console.WriteLine("总长度：{0} {1} {2}", shareTime.Count, responseTime.Count, shareResponseRatio.Count);
 
             jsonData.Clear();
             userjsonData.Clear();
@@ -782,7 +744,71 @@ namespace tianchi
                     foreach (var fid in simUser[dd])
                         users[iid].SimLusers.Add(fid, -dd);
             }
+            
+            var doubleLink = new Dictionary<string, Dictionary<string, int>>();
+            var doubleNum = 0;
+            // 检查用户之前的同一商品双向交互
+            foreach (var i1d in responseeach.Keys.ToList().WithProgressBar("Processing 双向交互..."))
+            {
+                foreach (var i2d in responseeach[i1d].Keys)
+                {
+                    foreach (var it in responseeach[i1d][i2d].Keys)
+                    {
+                        if (responseeach.ContainsKey(i2d))
+                        {
+                            if(responseeach[i2d].ContainsKey(i1d))
+                            {
+                                if (responseeach[i2d][i1d].ContainsKey(it))
+                                {
+                                    if (responseeach[i2d][i1d][it] > 0)
+                                    {
+                                        if(!doubleLink.ContainsKey(i1d))
+                                            doubleLink.Add(i1d, new Dictionary<string, int>()); 
+                                        if(!doubleLink.ContainsKey(i2d))
+                                            doubleLink.Add(i2d, new Dictionary<string, int>());
+                                        if(!doubleLink[i1d].ContainsKey(i2d))
+                                            doubleLink[i1d].Add(i2d, 0);
+                                        if(!doubleLink[i2d].ContainsKey(i1d))
+                                            doubleLink[i2d].Add(i1d, 0);
+                                        doubleLink[i1d][i2d] += responseeach[i2d][i1d][it];
+                                        doubleLink[i2d][i1d] += responseeach[i2d][i1d][it];
+                                        doubleNum += 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
+            var doubleLinkNumList = new List<int>();
+            var tempDict = new Dictionary<string, Dictionary<string, int>>(); // 用于存储需要修改的元素
+
+            foreach (var i1d in doubleLink.Keys)
+            {
+                foreach (var i2d in doubleLink[i1d].Keys)
+                {
+                    if (!tempDict.ContainsKey(i1d))
+                        tempDict[i1d] = new Dictionary<string, int>();
+                    tempDict[i1d][i2d] = doubleLink[i1d][i2d] / 2;
+                }
+            }
+
+            // 修改原字典，并将结果添加到新列表
+            foreach (var i1d in tempDict.Keys)
+            {
+                foreach (var i2d in tempDict[i1d].Keys)
+                {
+                    doubleLink[i1d][i2d] = tempDict[i1d][i2d];
+                    doubleLinkNumList.Add(tempDict[i1d][i2d]);
+                }
+            }
+
+            // 计算doubleLinkNumList的平均值\中位数
+            var doubleLinkNumListMean = doubleLinkNumList.Average();
+            doubleLinkNumList.Sort();
+            var doubleLinkNumListMedian = doubleLinkNumList[doubleLinkNumList.Count / 2];
+            Console.WriteLine("双向交互数量：" + doubleNum+" 平均值："+doubleLinkNumListMean+" 中位数："+doubleLinkNumListMedian);
 
             // 这段代码主要在进行准备工作，为预测模型准备所需的各种数据结构，
             // 包括记录不同数量的字典、添加数量的字典、订阅内容的字典、已经添加的内容的字典、
@@ -1038,15 +1064,8 @@ namespace tianchi
                         ritem += Math.Exp(-0.06 * tsp);
                         // 计算ritem，基于测试日期和it之间的时间差，权重为0.06
                     }
-
-                    var rRatio = 1.0;
-                    if (users[fid].ShareCount != 0 && users[fid].ResponseCount != 0)
-                    {
-                        double fidRatio = 1.0 * users[fid].ResponseCount / users[fid].ShareCount;
-                        rRatio = Math.Exp(0.01 * fidRatio / shrerMedian);
-                    }
-
-                    r = sir * ritem * users[id1].SimLusers[fid] * users[fid].Level * 0.1 *rRatio; // 计算一个预测值，根据各种已经计算出的变量
+                    
+                    r = sir * ritem * users[id1].SimLusers[fid] * users[fid].Level * 0.1; // 计算一个预测值，根据各种已经计算出的变量
                     r = r * fir * kir; // 继续根据其他变量调整预测值
                     if (sharerank[id1].ContainsKey(fid)) r *= sharerank[id1][fid]; // 如果sharerank字典中包含对应键值对，继续调整预测值
                     else r *= 0.000000001; // 如果不包含，则乘以一个极小的值
@@ -1059,8 +1078,13 @@ namespace tianchi
                     // 各种类型的邻居对应不同的处理和权重。
                     if (allNeigbors[id1]["F"].Contains(fid))
                     {
-                        // 如果id1的所有邻居中，类别"F"包含fid，进行下面的操作
-
+                        var doubleTimes = 0;
+                        if (doubleLink.ContainsKey(id1))
+                        {
+                            if(doubleLink[id1].ContainsKey(fid))
+                                doubleTimes = doubleLink[id1][fid];
+                        }
+                        // r *= 2.0 / (1.0 + Math.Exp(doubleTimes));
                         r *= rsim * resneigbor * rkdt; // 使用rsim, resneigbor和rkdt值来更新r
                         r *= Math.Exp(1.0 / responseitems[fid].Count); // 使用responseitems中fid的计数来更新r
 
@@ -1073,7 +1097,13 @@ namespace tianchi
                     else if (allNeigbors[id1]["L"].Contains(fid))
                     {
                         // 如果id1的所有邻居中，类别"L"包含fid，进行类似的操作，但这次不包含rkdt
-
+                        var doubleTimes = 0;
+                        if (doubleLink.ContainsKey(id1))
+                        {
+                            if(doubleLink[id1].ContainsKey(fid))
+                                doubleTimes = doubleLink[id1][fid];
+                        }
+                        // r *= 2.0 / (1.0 + Math.Exp(doubleTimes));
                         r *= rsim * resneigbor;
                         r *=expN * responseitems[fid].Count;
 
@@ -1176,14 +1206,7 @@ namespace tianchi
                         // 使用指数函数调整差值，累加到ritem，该操作将最近的响应时间赋予更大的权重
                     }
                     
-                    var rRatio = 1.0;
-                    if (users[fid].ShareCount != 0 && users[fid].ResponseCount != 0)
-                    {
-                        double fidRatio = 1.0 * users[fid].ResponseCount / users[fid].ShareCount;
-                        rRatio = Math.Exp(0.01 * fidRatio / shrerMedian);
-                    }
-
-                    r = sir * ritem * users[id1].SimFusers[fid] * users[fid].Level * 0.1 * rRatio;
+                    r = sir * ritem * users[id1].SimFusers[fid] * users[fid].Level * 0.1;
                     // 计算预测结果r，其中包含了sir，ritem，用户之间的相似度，用户fid的级别等信息
 
                     r = r * fir * kir;

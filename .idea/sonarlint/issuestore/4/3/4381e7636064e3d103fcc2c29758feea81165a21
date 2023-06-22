@@ -1,0 +1,75 @@
+
+Mpython:S1066ş"/Merge this if statement with the enclosing one.(áºØğÿÿÿÿÿ
+_python:S2208"GImport only needed names or import the module and then use its members.(‡ìŠÄ
+rpython:S117"VRename this parameter "dataItemLF" to match the regular expression ^[_a-z][a-z0-9_]*$.(ßŞÒâÿÿÿÿÿ
+npython:S117"RRename this parameter "dataLF" to match the regular expression ^[_a-z][a-z0-9_]*$.(ßŞÒâÿÿÿÿÿ
+tpython:S117"]Rename this local variable "submitresAll" to match the regular expression ^[_a-z][a-z0-9_]*$.(öœè­
+python:S117"eRename this local variable "userSimilarityMatrix" to match the regular expression ^[_a-z][a-z0-9_]*$.(şÔ’±ûÿÿÿÿ
+Epython:S14816"-Remove the unused local variable "rresponse".(†óÎ³
+Cpython:S1481y"&Remove the unused local variable "kx".(»—Ô®ÿÿÿÿÿ
+rpython:S3776"URefactor this function to reduce its Cognitive Complexity from 118 to the 15 allowed.(ßŞÒâÿÿÿÿÿ
+;python:S125z"Remove this commented out code.(´ıÕèÿÿÿÿÿ
+<python:S125ƒ"Remove this commented out code.(çâ¸œüÿÿÿÿ
+epython:S1854”"GRemove this assignment to local variable 'lk'; the value is never used.(æ‰ãúÿÿÿÿ
+`python:S1854‘"GRemove this assignment to local variable 'dt'; the value is never used.(ŒÅ—
+rpython:S117Õ"ZRename this parameter "Hyperthreading" to match the regular expression ^[_a-z][a-z0-9_]*$.(ì»¤â
+ppython:S117Õ"XRename this parameter "MaxThreading" to match the regular expression ^[_a-z][a-z0-9_]*$.(ì»¤â
+zpython:S117’"]Rename this local variable "MinThreading" to match the regular expression ^[_a-z][a-z0-9_]*$.(ëœèŞúÿÿÿÿ
+xpython:S117 "[Rename this local variable "dataItemLF" to match the regular expression ^[_a-z][a-z0-9_]*$.(ú´Ê–ùÿÿÿÿ
+opython:S117Ÿ"WRename this local variable "dataLF" to match the regular expression ^[_a-z][a-z0-9_]*$.(£ğ
+vpython:S117 "YRename this local variable "isChange" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÂÖÁûÿÿÿÿ
+zpython:S117ú"]Rename this local variable "itemjsonData" to match the regular expression ^[_a-z][a-z0-9_]*$.(òÉö™ùÿÿÿÿ
+qpython:S117ö"YRename this local variable "jsonData" to match the regular expression ^[_a-z][a-z0-9_]*$.(Œ‘úÏ
+tpython:S117ª"WRename this local variable "maxAge" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÿÙÑÑûÿÿÿÿ
+qpython:S117«"YRename this local variable "maxClass" to match the regular expression ^[_a-z][a-z0-9_]*$.(Óøå¼
+wpython:S117è"_Rename this local variable "preSimilarUser" to match the regular expression ^[_a-z][a-z0-9_]*$.(—üø
+lpython:S117Õ"TRename this parameter "savaPath" to match the regular expression ^[_a-z][a-z0-9_]*$.(ì»¤â
+upython:S117¤"XRename this local variable "simUser" to match the regular expression ^[_a-z][a-z0-9_]*$.(¬è¶ßùÿÿÿÿ
+{python:S117Ú"^Rename this local variable "statisticList" to match the regular expression ^[_a-z][a-z0-9_]*$.(Î©ìáûÿÿÿÿ
+upython:S117·"]Rename this local variable "submitresAll" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÅÊòõ
+upython:S117€"]Rename this local variable "testjsonData" to match the regular expression ^[_a-z][a-z0-9_]*$.(ı Î¬
+{python:S117˜"cRename this local variable "testjsonDataSplits" to match the regular expression ^[_a-z][a-z0-9_]*$.(„ÚÁË
+upython:S117ù"]Rename this local variable "threadingNum" to match the regular expression ^[_a-z][a-z0-9_]*$.(áõÙå
+|python:S117¦"_Rename this local variable "userAverageAge" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ìï„¬úÿÿÿÿ
+python:S117º"dRename this local variable "userAverageAgeCount" to match the regular expression ^[_a-z][a-z0-9_]*$.(ª²çÁıÿÿÿÿ
+python:S117¾"bRename this local variable "userAverageAgeSum" to match the regular expression ^[_a-z][a-z0-9_]*$.(ˆí÷Ïúÿÿÿÿ
+xpython:S117§"aRename this local variable "userAverageClass" to match the regular expression ^[_a-z][a-z0-9_]*$.(–³ñQ
+ƒpython:S117»"fRename this local variable "userAverageClassCount" to match the regular expression ^[_a-z][a-z0-9_]*$.(¡ıÙûÿÿÿÿ
+python:S117¿"dRename this local variable "userAverageClassSum" to match the regular expression ^[_a-z][a-z0-9_]*$.(¥ñáøÿÿÿÿ
+zpython:S117"bRename this local variable "userAverageGender" to match the regular expression ^[_a-z][a-z0-9_]*$.(‰Ÿ’ç
+python:S117 "vRename this local variable "userGenderAgeClassSimilarityWeighting" to match the regular expression ^[_a-z][a-z0-9_]*$.(‡ÙK
+python:S117‰"bRename this local variable "userGenderAverage" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÆØÒúÿÿÿÿ
+„python:S117Â"gRename this local variable "userGenderAverageCount" to match the regular expression ^[_a-z][a-z0-9_]*$.(¨ƒÑÃùÿÿÿÿ
+‰python:S117£"lRename this local variable "userGenderAverageOneHotCode" to match the regular expression ^[_a-z][a-z0-9_]*$.(¤¡ä×ùÿÿÿÿ
+}python:S117Å"eRename this local variable "userGenderAverageSum" to match the regular expression ^[_a-z][a-z0-9_]*$.(ıÖ¥Ï
+tpython:S117á"WRename this local variable "userID" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÓÇû¸úÿÿÿÿ
+tpython:S117¦"WRename this local variable "userId" to match the regular expression ^[_a-z][a-z0-9_]*$.(ú–Äåşÿÿÿÿ
+qpython:S117"YRename this local variable "userInfo" to match the regular expression ^[_a-z][a-z0-9_]*$.(×Éİ»
+‚python:S117½"eRename this local variable "userSimilarityMatrix" to match the regular expression ^[_a-z][a-z0-9_]*$.(şÔ’±ûÿÿÿÿ
+upython:S117ş"]Rename this local variable "userjsonData" to match the regular expression ^[_a-z][a-z0-9_]*$.(ËÕœ
+rpython:S117¥"ZRename this local variable "usersMini" to match the regular expression ^[_a-z][a-z0-9_]*$.(®§È
+~python:S117‚"aRename this local variable "verificationData" to match the regular expression ^[_a-z][a-z0-9_]*$.(ë§Åÿÿÿÿÿ
+Cpython:S1481Ï"*Remove the unused local variable "ktotal".(ñŒÏ½
+Fpython:S1481Õ"-Remove the unused local variable "rresponse".(ê±‘
+Cpython:S1481˜"%Remove the unused local variable "k".( ¡ğÏÿÿÿÿÿ
+Apython:S1481Ó"(Remove the unused local variable "rsim".(ŞµŒø
+Cpython:S1481—"%Remove the unused local variable "n".(‘£ë…ÿÿÿÿÿ
+@python:S1481Ò"'Remove the unused local variable "tsp".(¿ÎØÆ
+apython:S1481 "IRemove the unused local variable "userGenderAgeClassSimilarityWeighting".(‡ÙK
+Dpython:S1481—"&Remove the unused local variable "kn".( Ö¼Ãûÿÿÿÿ
+Gpython:S1481Ô")Remove the unused local variable "ritem".(¢±óÍıÿÿÿÿ
+]python:S1481£"?Remove the unused local variable "userGenderAverageOneHotCode".(¤¡ä×ùÿÿÿÿ
+Jpython:S1481 ",Remove the unused local variable "isChange".(ÂÖÁûÿÿÿÿ
+Gpython:S1481")Remove the unused local variable "data2".(åúÚ–şÿÿÿÿ
+?python:S1481–"&Remove the unused local variable "kx".(‰“Ûß
+Epython:S1481Î"'Remove the unused local variable "mmr".(ıÛ·›şÿÿÿÿ
+npython:S3776Õ"URefactor this function to reduce its Cognitive Complexity from 160 to the 15 allowed.(ì»¤â
+7python:S125"Remove this commented out code.(âÍ·
+<python:S125¶"Remove this commented out code.(‚„Äøÿÿÿÿ
+<python:S125š"Remove this commented out code.(çõ şÿÿÿÿ
+7python:S125ø"Remove this commented out code.(±ö÷
+<python:S125€"Remove this commented out code.(ÍúŒıÿÿÿÿ
+7python:S125Í"Remove this commented out code.(ÆÔœ¦
+<python:S125ä"Remove this commented out code.(Ì´Îóùÿÿÿÿ
+6python:S125î"Remove this commented out code.(¯¥…
+7python:S125÷"Remove this commented out code.(ÌÖĞü
