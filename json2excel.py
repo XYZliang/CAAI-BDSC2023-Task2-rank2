@@ -10,23 +10,35 @@ import os
 import pandas as pd
 import orjson
 import openpyxl
+from tqdm import tqdm
+from joblib import Parallel, delayed
 
 # 指定数据目录
 data_dir = './data'
 
-# 遍历文件目录
-for filename in os.listdir(data_dir):
-    # 检查是否是.json文件
-    if filename.endswith('.json'):
-        with open(os.path.join(data_dir, filename), 'rb') as file:
-            # 使用orjson加载json数据
-            data = orjson.loads(file.read())
 
-            # 将json数据转为pandas DataFrame
-            df = pd.DataFrame(data)
+def process_file(filename, i):
+    with open(os.path.join(data_dir, filename), 'rb') as file:
+        # 使用orjson加载json数据
+        data = orjson.loads(file.read())
 
-            # 转为excel文件，替换文件后缀名为.xlsx
-            excel_filename = filename.replace('.json', '.xlsx')
-            df.to_excel(os.path.join(data_dir, excel_filename))
+        # 将json数据转为pandas DataFrame
+        df = pd.DataFrame(data)
+
+        # 转为excel文件，替换文件后缀名为.xlsx
+        excel_filename = filename.replace('.json', '.xlsx')
+        df.to_excel(os.path.join(data_dir, excel_filename))
+        return f"Converted {filename} to {excel_filename}"
+
+
+# 获取所有.json文件
+json_files = [f for f in os.listdir(data_dir) if f.endswith('.json')]
+
+# 遍历文件目录，并行处理
+results = Parallel(n_jobs=-1)(delayed(process_file)(json_files[i], i) for i in tqdm(range(len(json_files))))
+
+# 输出处理结果
+for result in results:
+    print(result)
 
 print('JSON files have been successfully converted to Excel files.')

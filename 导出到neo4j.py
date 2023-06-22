@@ -23,7 +23,7 @@ for item_info in tqdm(item_info_data, desc="获取商品实体和属性"):
     item_info_dict[item_info["item_id"]] = item_info
 
 # 读取item_share_train_info.json文件，并将数据作为关系存入Neo4j
-with open('./data/item_share_train_info.json', 'rb') as f:
+with open('./data/item_share_train_info_B.json', 'rb') as f:
     item_share_train_info_data = json.loads(f.read())
 with driver.session() as session:
     for item_share_train_info in tqdm(item_share_train_info_data,desc="存入分享关系和属性"):
