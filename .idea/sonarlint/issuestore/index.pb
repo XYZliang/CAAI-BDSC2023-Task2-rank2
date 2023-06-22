@@ -11,8 +11,6 @@ g
 Program1.cs,d\2\d263b68d008cde2ee289e48a24700bc615deaa1c
 [
 +data/item_share_train_info_test_01_ans.json,0\c\0c84917e336c773006d4c00b5a6402503967847b
-Z
-*data/item_share_preliminary_test_info.json,9\a\9ace7f55e68d6d5bf0913532a24a97206d0059b8
 I
 bin/x64/Release/conf.json,9\a\9a7d3dd2f3e209fb7dc852ca5de229c792c56ef7
 R
@@ -21,8 +19,6 @@ L
 bin/x64/Release/confList.txt,c\d\cd7ae7843f653a0b42279abe7c7af12bd0a972e3
 K
 检查三阶是否足够.py,6\0\6079339034eca8fa7683518b50c1970ccae4eac4
-B
-拆分数据集.py,3\d\3d4ab66b91639d1b05a28428b8f1ec34a459a51d
 ?
 verification.py,d\7\d75a7c917ba137aae3306e211f46ef7fc1a74aa9
 L
