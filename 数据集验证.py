@@ -72,9 +72,7 @@ total_mrr, total_hits_at_5, results = calculate_metrics(test_data, predictions)
 
 print(f"总的MRR: {total_mrr}")
 print(f"总的HITS@5: {total_hits_at_5}")
-try:
-    # 保存每一个query的结果到excel文件中
-    df = pd.DataFrame(results)
-    df.to_excel("./results.xlsx", index=False)
-except PermissionError:
-    print("请关闭results.xlsx文件后再运行本程序")
+
+# 保存每一个query的结果到excel文件中
+df = pd.DataFrame(results)
+df.to_excel("./results.xlsx", index=False)
