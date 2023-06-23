@@ -12,8 +12,8 @@ public static class ProgressBarExtensions
 {
     public static IEnumerable<T> WithProgressBar<T>(this IEnumerable<T> enumerable, string message = "Processing...")
     {
-        int totalCount = enumerable.Count();
-        int processedItems = 0;
+        var totalCount = enumerable.Count();
+        var processedItems = 0;
 
         var stopwatch = Stopwatch.StartNew();
 
@@ -35,7 +35,8 @@ public static class ProgressBarExtensions
                 var elapsed = stopwatch.Elapsed;
                 var estimatedTotalTime = TimeSpan.FromSeconds(elapsed.TotalSeconds / processedItems * totalCount);
                 var estimatedTimeRemaining = estimatedTotalTime - elapsed;
-                progressBar.Message = $"{message} ({processedItems}/{totalCount}) Estimated time remaining: {estimatedTimeRemaining}";
+                progressBar.Message =
+                    $"{message} ({processedItems}/{totalCount}) Estimated time remaining: {estimatedTimeRemaining}";
             }
         }
 
@@ -43,8 +44,10 @@ public static class ProgressBarExtensions
         progressBar.Message = $"{message}已完成，总用时：{stopwatch.Elapsed}";
         progressBar.Dispose();
     }
+
     // 读取文件版本
-    public static IEnumerable<JsonData> LoadFilesWithProgressBar(string[] filePaths, string message = "Loading files...")
+    public static IEnumerable<JsonData> LoadFilesWithProgressBar(string[] filePaths,
+        string message = "Loading files...")
     {
         var fileDataList = new List<JsonData>();
 
@@ -56,7 +59,6 @@ public static class ProgressBarExtensions
         }
     }
 }
-
 
 
 public class LinkInfo
@@ -75,14 +77,14 @@ public class UserIDInfo
     public int Gender { get; set; }
 
     public int Age { get; set; }
-    
+
     // 临时储存一阶下游
-    public List<String> tempNeighborList { get; set; }
-    public List<String> tempItemList { get; set; }
+    public List<string> tempNeighborList { get; set; }
+    public List<string> tempItemList { get; set; }
     public int OneNeighborNum { get; set; }
     public int OneShareNum { get; set; }
     public int itemNum { get; set; }
-    public Boolean bigV { get; set; }
+    public bool bigV { get; set; }
 
     // 该用户分享过的用户
     public Dictionary<string, List<DateTime>> Neighbor { get; set; }
@@ -128,6 +130,7 @@ namespace tianchi
             var program = new Program();
             program.NewSumbit();
         }
+
         private void NewSumbit()
         {
             var ver = true;
@@ -135,24 +138,26 @@ namespace tianchi
             var testDataPath = "";
             var itemDataPath = @"./data/item_info.json"; //定义商品信息数据文件的路径
             var userDataPath = @"./data/user_info.json"; //定义用户信息数据文件的路径
-            if(ver)
+            if (ver)
             {
                 shareDataPath = @"./data/item_share_train_info_09.json"; //定义商品分享数据文件的路径
                 testDataPath = @"./data/item_share_train_info_test_01.json"; //定义测试数据文件的路径
             }
-            else 
-            { 
-            shareDataPath = @"./data/item_share_train_info_AB.json"; //定义商品分享数据文件的路径
-            testDataPath = @"./data/item_share_test_info_B.json"; //定义测试数据文件的路径
+            else
+            {
+                shareDataPath = @"./data/item_share_train_info_AB.json"; //定义商品分享数据文件的路径
+                testDataPath = @"./data/item_share_test_info_B.json"; //定义测试数据文件的路径
             }
+
             // var jsonData = JsonMapper.ToObject(System.IO.File.ReadAllText(shareDataPath)); //读取并解析商品分享数据文件
             // var itemjsonData = JsonMapper.ToObject(System.IO.File.ReadAllText(itemDataPath)); //读取并解析商品信息数据文件
             // var userjsonData = JsonMapper.ToObject(System.IO.File.ReadAllText(userDataPath)); //读取并解析用户信息数据文件
             // var testjsonData = JsonMapper.ToObject(System.IO.File.ReadAllText(testDataPath)); //读取并解析测试数据文件
             // 读取文件并显示进度条
-            var filePaths = new [] {shareDataPath, itemDataPath, userDataPath, testDataPath};
+            var filePaths = new[] { shareDataPath, itemDataPath, userDataPath, testDataPath };
             var jsonDataList = ProgressBarExtensions.LoadFilesWithProgressBar(filePaths).ToList();
-            var (jsonData, itemjsonData, userjsonData, testjsonData) = (jsonDataList[0], jsonDataList[1], jsonDataList[2], jsonDataList[3]);
+            var (jsonData, itemjsonData, userjsonData, testjsonData) =
+                (jsonDataList[0], jsonDataList[1], jsonDataList[2], jsonDataList[3]);
             var data = new SortedDictionary<DateTime, List<LinkInfo>>(); //初始化一个根据日期排序的商品分享链路信息字典
             DateTime dt; //定义一个日期时间变量dt
             LinkInfo lk; //定义一个链路信息变量lk
@@ -162,21 +167,33 @@ namespace tianchi
             var users = new Dictionary<string, UserIDInfo>(); //初始化一个用户信息字典，Key为用户id，Value为用户信息
             var itemsinfo = new Dictionary<string, ItemInfo>(); //初始化一个商品信息字典，Key为商品id，Value为商品信息
             var itemreceive = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录商品被接收的信息
-            var netrelation = new Dictionary<string, Dictionary<string, Dictionary<int, Dictionary<string, double>>>>(); //初始化一个复杂嵌套字典结构，记录网络关系信息
+            var netrelation =
+                new Dictionary<string,
+                    Dictionary<string, Dictionary<int, Dictionary<string, double>>>>(); //初始化一个复杂嵌套字典结构，记录网络关系信息
             var responseitems = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录用户响应商品的信息
             var sharerank = new Dictionary<string, Dictionary<string, double>>(); //初始化一个嵌套字典结构，记录商品分享的排名信息
             string item; //定义一个字符串变量item，表示商品
-            var ranks = new Dictionary<string, Dictionary<string, SortedDictionary<DateTime, List<string>>>>(); //初始化一个嵌套字典结构，记录商品的排名信息
-            Dictionary<string, HashSet<string>> sharenum = new Dictionary<string, HashSet<string>>(), responseall = new Dictionary<string, HashSet<string>>(); //初始化两个字典，分别记录商品分享次数和所有的响应信息
+            var ranks =
+                new Dictionary<string,
+                    Dictionary<string, SortedDictionary<DateTime, List<string>>>>(); //初始化一个嵌套字典结构，记录商品的排名信息
+            Dictionary<string, HashSet<string>> sharenum = new Dictionary<string, HashSet<string>>(),
+                responseall = new Dictionary<string, HashSet<string>>(); //初始化两个字典，分别记录商品分享次数和所有的响应信息
             var responsenum = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录用户响应次数信息
             var activenum = new Dictionary<string, double>(); //初始化一个字典，记录用户活跃数信息
             var allNeigbors = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录所有邻居信息
             var sharetimes = new Dictionary<string, int>(); //初始化一个字典，记录商品分享次数信息
             var activefrenq = new Dictionary<string, double>(); //初始化一个字典，记录活跃频率信息
             var userresptime = new Dictionary<string, List<DateTime>>(); //初始化一个字典，记录用户响应时间信息
-            Dictionary<string, Dictionary<string, SortedSet<DateTime>>> shareusers = new Dictionary<string, Dictionary<string, SortedSet<DateTime>>>(), responstimeAllitems = new Dictionary<string, Dictionary<string, SortedSet<DateTime>>>(), sharetrainitem = new Dictionary<string, Dictionary<string, SortedSet<DateTime>>>(); //初始化三个嵌套字典，记录分享用户信息、所有商品的响应时间信息和分享商品信息
-            var userclassinfo = new Dictionary<string, Dictionary<string, Dictionary<string, int>>>(); //初始化一个嵌套字典结构，记录用户类别信息
-            var itemuserclassinfo = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录商品的用户类别信息
+            Dictionary<string, Dictionary<string, SortedSet<DateTime>>> shareusers =
+                    new Dictionary<string, Dictionary<string, SortedSet<DateTime>>>(),
+                responstimeAllitems = new Dictionary<string, Dictionary<string, SortedSet<DateTime>>>(),
+                sharetrainitem =
+                    new Dictionary<string,
+                        Dictionary<string, SortedSet<DateTime>>>(); //初始化三个嵌套字典，记录分享用户信息、所有商品的响应时间信息和分享商品信息
+            var userclassinfo =
+                new Dictionary<string, Dictionary<string, Dictionary<string, int>>>(); //初始化一个嵌套字典结构，记录用户类别信息
+            var itemuserclassinfo =
+                new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化一个嵌套字典结构，记录商品的用户类别信息
             var shareresponse = new Dictionary<string, Dictionary<string, List<double>>>(); //初始化一个嵌套字典结构，记录分享和响应信息
             var classtype = new Dictionary<string, string>(); //初始化一个字典，记录类别类型信息
             var classtypeweight = new Dictionary<string, double>(); //初始化一个字典，记录类别权重信息
@@ -188,18 +205,21 @@ namespace tianchi
                 classtype.Add(xid, ""); //将当前关键字和空字符串添加到类别类型字典中
                 classtypeweight.Add(xid, weight[n++]); //将当前关键字和对应的权重添加到类别权重字典中
             }
+
             n = 0; //重置n的值为0
             foreach (var xid in classtype.Keys.WithProgressBar("Processing 2...")) //遍历类别类型字典的键，执行以下操作：
             {
                 userclassinfo.Add(xid, new Dictionary<string, Dictionary<string, int>>()); //将当前键和一个新的嵌套字典添加到用户类别信息字典中
                 itemuserclassinfo.Add(xid, new Dictionary<string, HashSet<string>>()); //将当前键和一个新的嵌套字典添加到商品的用户类别信息字典中
             }
-            
+
+
             // 这段代码的主要工作是遍历用户数据文件，并为每个用户创建和初始化各种属性和统计数据。这些属性和数据包括：
             // 用户ID、等级、性别、年龄、邻居、新邻居、比率、响应时间、项目ID、响应时间区、静态相似用户、网络关系、响应项目、分享排名、分享数量、
             // 响应数量、活跃数量、所有邻居、活跃频率以及用户响应时间。这段代码的策略主要是通过构建各种字典和集合，
             // 对用户的属性和行为进行详细的追踪和统计，从而为之后的预测工作提供依据。
-            foreach (JsonData temp in userjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 用户数据...")) //遍历用户数据json文件
+            foreach (var temp in
+                     userjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 用户数据...")) //遍历用户数据json文件
             {
                 var user_id = temp[0]; //提取用户id
                 var level = temp[3]; //提取用户等级
@@ -222,13 +242,8 @@ namespace tianchi
                 users[id1].ItemID = new HashSet<string>(); //初始化集合，存储用户的项目id信息
                 users[id1].responseTimeZone = new Dictionary<int, double>(); //初始化字典，存储用户的响应时间区信息
                 users[id1].StaticSimUsers = new Dictionary<string, double>(); //初始化字典，存储用户的静态相似用户信息
-                users[id1].OneShareNum = 0;
-                users[id1].OneNeighborNum = 0;
-                users[id1].tempNeighborList = new List<string>();
-                users[id1].bigV=false;
-                users[id1].tempItemList = new List<string>();
-                users[id1].itemNum = 0;
-                netrelation.Add(id1, new Dictionary<string, Dictionary<int, Dictionary<string, double>>>()); //初始化嵌套字典，存储网络关系信息
+                netrelation.Add(id1,
+                    new Dictionary<string, Dictionary<int, Dictionary<string, double>>>()); //初始化嵌套字典，存储网络关系信息
                 responseitems.Add(id1, new Dictionary<string, HashSet<string>>()); //初始化嵌套字典，存储响应项目信息
                 sharerank.Add(id1, new Dictionary<string, double>()); //初始化字典，存储分享排名信息
                 sharenum.Add(id1, new HashSet<string>()); //初始化集合，存储分享数量信息
@@ -247,7 +262,8 @@ namespace tianchi
             // 这段代码的主要工作是遍历商品数据文件，并为每个商品创建和初始化各种属性和统计数据。这些属性和数据包括：
             // 商品ID、商店ID、品牌ID、分类ID和等级ID。与之前的用户数据处理类似，
             // 这段代码的策略主要是通过构建字典来跟踪和统计商品的属性，从而为之后的预测工作提供依据。
-            foreach (JsonData temp in itemjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 商品数据...")) //遍历商品数据json文件
+            foreach (var temp in
+                     itemjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 商品数据...")) //遍历商品数据json文件
             {
                 var item_id = temp[0]; //提取商品id
                 var cate_id = temp[1]; //提取分类id
@@ -263,21 +279,18 @@ namespace tianchi
                 itemreceive.Add(itemid, new Dictionary<string, HashSet<string>>()); //初始化嵌套字典，存储商品接收信息
                 //ItemAll.Add(itemid,new SortedDictionary<DateTime, List<Tuple<string, string>>>()); //此行代码被注释掉，本来用于初始化嵌套字典，存储商品所有信息
             }
-            
+
             // 此段代码主要用于处理训练数据。在遍历训练数据的过程中，它会提取每个JSON对象中的user_id, item_id, voter_id, 和timestamp，
             // 并使用这些信息来创建LinkInfo对象。然后，根据这些信息，它会更新多个字典结构，这些字典结构用于保存不同类型的用户和商品信息，
             // 如回应时间，排名，分享数，回应数，活跃数和分类信息。这段代码使用了特征工程的方法，
             // 通过提取和组合原始数据中的信息来生成用于预测voter_id的特征。在遍历结束后，每个用户和商品都会有一个与其相关的详细信息集，
             // 这些信息将用于预测阶段。
-
-            // 获取每次用户成功分享的次数
-            var shareTimes = new Dictionary<string, Dictionary<string, int>>();
-            foreach (JsonData temp in jsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 训练数据...")) //遍历训练数据
+            foreach (var temp in jsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 训练数据...")) //遍历训练数据
             {
-                var user_id = temp["inviter_id"]; //提取用户id
-                var item_id = temp["item_id"]; //提取物品id
-                var voter_id = temp["voter_id"]; //提取投票者id
-                var timestamp = temp["timestamp"]; //提取时间戳
+                var user_id = temp[0]; //提取用户id
+                var item_id = temp[1]; //提取物品id
+                var voter_id = temp[2]; //提取投票者id
+                var timestamp = temp[3]; //提取时间戳
                 lk = new LinkInfo(); //创建新的LinkInfo实例
                 id1 = lk.UserID = user_id.ToString(); //将用户id转换为字符串并赋值给UserID
                 item = lk.ItemID = item_id.ToString(); //将物品id转换为字符串并赋值给ItemID
@@ -286,34 +299,21 @@ namespace tianchi
                 if (!responstimeAllitems[id2].ContainsKey(item))
                     responstimeAllitems[id2].Add(item, new SortedSet<DateTime>()); //如果回应时间列表中没有该项，就添加
                 responstimeAllitems[id2][item].Add(dt); //在回应时间列表中添加时间戳
-                if (!data.ContainsKey(dt)) data.Add(dt, new List<LinkInfo>()); //如果数据中没有该时间，就添加、
-                // shareTimes
-                if(!shareTimes.ContainsKey(id1))
-                    shareTimes.Add(id1, new Dictionary<string, int>());
-                if(!shareTimes[id1].ContainsKey(item))
-                    shareTimes[id1].Add(item, 0);
-                shareTimes[id1][item]++;
+                if (!data.ContainsKey(dt)) data.Add(dt, new List<LinkInfo>()); //如果数据中没有该时间，就添加
                 data[dt].Add(lk); //在数据中添加LinkInfo对象
+
                 if (!ranks.ContainsKey(id1))
                     ranks.Add(id1, new Dictionary<string, SortedDictionary<DateTime, List<string>>>()); //如果排名中没有该用户，就添加
-                if (!ranks[id1].ContainsKey(item)) ranks[id1].Add(item, new SortedDictionary<DateTime, List<string>>()); //如果用户中没有该物品，就添加
+                if (!ranks[id1].ContainsKey(item))
+                    ranks[id1].Add(item, new SortedDictionary<DateTime, List<string>>()); //如果用户中没有该物品，就添加
                 if (!ranks[id1][item].ContainsKey(dt)) ranks[id1][item].Add(dt, new List<string>()); //如果物品中没有该时间，就添加
                 ranks[id1][item][dt].Add(id2); //在指定时间和物品中添加投票者id
                 sharenum[id1].Add(item); //在分享数中添加物品id
-                if (!responsenum[id1].ContainsKey(id2)) responsenum[id1].Add(id2, new HashSet<string>()); //如果回应数中没有该投票者，就添加
+                if (!responsenum[id1].ContainsKey(id2))
+                    responsenum[id1].Add(id2, new HashSet<string>()); //如果回应数中没有该投票者，就添加
                 responsenum[id1][id2].Add(item); //在指定投票者中添加物品id
                 activenum[id2] += 1; //增加投票者活动数
-                users[user_id.ToString()].OneShareNum++;
-                if(!users[user_id.ToString()].tempNeighborList.Contains(voter_id.ToString()))
-                {
-                    users[user_id.ToString()].tempNeighborList.Add(voter_id.ToString());
-                    users[user_id.ToString()].OneNeighborNum++;
-                }
-                if(!users[user_id.ToString()].tempItemList.Contains(item_id.ToString()))
-                {
-                    users[user_id.ToString()].tempItemList.Add(item_id.ToString());
-                    users[user_id.ToString()].itemNum++;
-                }
+
                 classtype["Brand"] = itemsinfo[item].BrandId; //获取商品的品牌id
                 classtype["CateID"] = itemsinfo[item].CateId; //获取商品的分类id
                 classtype["CateOne"] = itemsinfo[item].CateLevelOneId; //获取商品的一级分类id
@@ -337,146 +337,20 @@ namespace tianchi
                     itemuserclassinfo[xid][classtype[xid]].Add(id1); //在指定分类中添加用户id
                     itemuserclassinfo[xid][classtype[xid]].Add(id2); //在指定分类中添加投票者id
                 }
+
                 ++n; //增加计数器
             }
-            
-            var bigVlist = new List<String>();
-            var bigVhisNum = new Dictionary<double, List<String>>();
-            foreach (var user_id in users.Keys.WithProgressBar("Processing 检查大V"))
-            {
-                if (users[user_id].OneShareNum >100 && users[user_id].itemNum>5)
-                {
-                    users[user_id].bigV = false;
-                    var shareHisNumList = new List<int>();
-                    foreach (var item_id in shareTimes[user_id].Keys)
-                    {
-                        shareHisNumList.Add(shareTimes[user_id][item_id]);
-                    }
-                    shareHisNumList.Sort();
-                    // shareHisNumList平均、中位数、最大、最小
-                    var shareHisNumAvg = shareHisNumList.Average();
-                    var shareHisNumMedian = shareHisNumList[shareHisNumList.Count/2];
-                    var shareHisNumMax = shareHisNumList[shareHisNumList.Count-1];
-                    var shareHisNumMin = shareHisNumList[0];
-                    if(shareHisNumAvg < 10)
-                        continue;
-                    if(!bigVhisNum.ContainsKey(shareHisNumAvg)) bigVhisNum.Add(shareHisNumAvg, new List<String>());
-                    bigVhisNum[shareHisNumAvg].Add(user_id.ToString());
-                    // if (user_id != "9a81907ad3c0ff31502b47e024cab7ce")
-                    //     continue;
-                    users[user_id].bigV = true;
-                    bigVlist.Add(user_id.ToString());
-                }
-                // 清空users[user_id].tempNeighborList
-                users[user_id].tempNeighborList.Clear();
-                users[user_id].tempItemList.Clear();
-            }
-            // bigVhisNum排序
-            var sortedBigVhisNum = bigVhisNum
-                .OrderByDescending(pair => pair.Key)
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
-            foreach (var pair in sortedBigVhisNum)
-            {
-                Console.WriteLine($"Key: {pair.Key}, Value: {string.Join(",", pair.Value)}");
-            }
-            shareTimes.Clear();
-            Console.Write("大V数量："+bigVlist.Count+"\n");
-            var bigVhistory = new Dictionary<string, Dictionary<string, Dictionary<string, int>>>();
-            var bigVhistoryIndex = new Dictionary<string, Dictionary<string, int>>();
-            foreach(JsonData temp in jsonData.Cast<JsonData>().ToList().WithProgressBar("正在获取大V历史分享"))
-            {
-                if(!bigVlist.Contains(temp["inviter_id"].ToString()))
-                    continue;
-                var user_id = temp["inviter_id"]; //提取用户id
-                var item_id = temp["item_id"]; //提取物品id
-                var voter_id = temp["voter_id"]; //提取投票者id
-                id1 = user_id.ToString(); //将用户id转换为字符串并赋值给UserID
-                item = item_id.ToString(); //将物品id转换为字符串并赋值给ItemID
-                id2 = voter_id.ToString(); //将投票者id转换为字符串并赋值给VoterID
-                if(!bigVhistory.ContainsKey(id1))
-                    bigVhistory.Add(id1, new Dictionary<string, Dictionary<string, int>>());
-                if(!bigVhistory[id1].ContainsKey(item))
-                    bigVhistory[id1].Add(item, new Dictionary<string, int>());
-                if (!bigVhistory[id1][item].ContainsKey(id2))
-                    bigVhistory[id1][item].Add(id2, 0);
-                else
-                    Console.WriteLine(id1+","+item+","+id2+"数据重复");
-                if(!bigVhistoryIndex.ContainsKey(id1))
-                    bigVhistoryIndex.Add(id1, new Dictionary<string, int>());
-                if(!bigVhistoryIndex[id1].ContainsKey(item))
-                    bigVhistoryIndex[id1].Add(item, 0);
-                bigVhistoryIndex[id1][item]++;
-                bigVhistory[id1][item][id2] = bigVhistoryIndex[id1][item];
-            }
-            bigVhistoryIndex.Clear();
-            var bigVfansOrderList = new Dictionary<string, Dictionary<string, List<int>>>();
-            foreach (var v_id in bigVhistory.Keys.WithProgressBar("正在获取大V粉丝历史顺序"))
-            {
-                foreach (var item_id in bigVhistory[v_id].Keys)
-                {
-                    foreach (var fans_id in bigVhistory[v_id][item_id].Keys)
-                    {
-                        if(!bigVfansOrderList.ContainsKey(v_id))
-                            bigVfansOrderList.Add(v_id, new Dictionary<string, List<int>>());
-                        if(!bigVfansOrderList[v_id].ContainsKey(fans_id))
-                            bigVfansOrderList[v_id].Add(fans_id, new List<int>());
-                        bigVfansOrderList[v_id][fans_id].Add(bigVhistory[v_id][item_id][fans_id]);
-                    }
-                }
-            }
-            var bigVfansOrderScore = new Dictionary<string, Dictionary<string, decimal>>();
-            foreach (var vid in bigVfansOrderList.Keys.WithProgressBar("正在计算大V粉丝历史顺序得分"))
-            {
-                foreach (var fansid in bigVfansOrderList[vid].Keys)
-                {
-                    // 次数
-                    var num = bigVfansOrderList[vid][fansid].Count();
-                    if(!bigVfansOrderScore.ContainsKey(vid))
-                        bigVfansOrderScore.Add(vid, new Dictionary<string, decimal>());
-                    if(!bigVfansOrderScore[vid].ContainsKey(fansid))
-                        bigVfansOrderScore[vid].Add(fansid, 0);
-                    // 排名算法，平均数
-                    // bigVfansOrderScore[vid][fansid] = bigVfansOrderList[vid][fansid].Average();
-                    // 排名算法，倒数的平均数
-                    decimal sc = bigVfansOrderList[vid][fansid].Select(x => 1m/(x*1m)).Average();
-                    if (sc == 0)
-                    {
-                        // foreach(var s in bigVfansOrderList[vid][fansid])
-                        //     Console.Write(s+",");
-                        // foreach (var s in bigVfansOrderList[vid][fansid])
-                        //     Console.Write(1.0/s + ",");
-                        // Console.WriteLine();
-                        // Console.WriteLine(bigVfansOrderList[vid][fansid].Select(x => 1m / (x * 1m)).Average());
-                        // Console.WriteLine(bigVfansOrderList[vid][fansid]);
-                        //error
-                        Console.WriteLine("error0");
-                    }
-                    bigVfansOrderScore[vid][fansid] = sc;
-                    // 排名算法，结合次数
-                    // bigVfansOrderScore[vid][fansid] = bigVfansOrderList[vid][fansid].Select(x => 1/x).Average();
-                    // bigVfansOrderScore[vid][fansid] -= (1.0 * num / 100);
-                }
-            }
-            // bigVfansOrderScore转换为排名
-            var bigVfansOrder = new Dictionary<string, List<String>>();
-            foreach (var vid in bigVfansOrderScore.Keys.WithProgressBar("正在转换大V粉丝排名"))
-            {
-                bigVfansOrder[vid] = bigVfansOrderScore[vid]
-                    .OrderByDescending(x => x.Value)//大到小
-                    .ThenByDescending(x => bigVfansOrderList[vid][x.Key].Count)
-                    .Select(x => x.Key)
-                    .ToList();
-            }
-            Console.WriteLine(bigVfansOrder);
+
+
             jsonData.Clear();
             userjsonData.Clear();
             itemjsonData.Clear();
-            
+
             // 此代码段主要用于计算每个用户对每个物品的分享排名。它遍历ranks字典，该字典保存了每个用户对每个物品在不同日期的投票情况。
             // 然后，对于每个用户、物品和日期，计算一个排名分数，该分数为1除以ii和tt的乘积，其中ii为指定用户、物品和日期的投票者数量，tt始终为1。
             // 这个分数加入到sharerank字典中，该字典保存了每个用户对每个投票者的总排名分数。然后，它初始化了几个字典，这些字典用于保存后续需要使用的数据。
             // 最后，它计算了data字典中的最大和最小日期。
-            foreach (var id in ranks.Keys.WithProgressBar("Processing 3")) //遍历所有的用户id
+            foreach (var id in ranks.Keys.WithProgressBar("Processing 3...")) //遍历所有的用户id
             {
                 double tt = 1; //初始化tt值为1
                 foreach (var fid in ranks[id].Keys) //遍历指定用户id对应的所有物品id
@@ -486,15 +360,20 @@ namespace tianchi
                     foreach (var d in ranks[id][fid].Keys) //遍历指定用户id和物品id对应的所有日期
                     {
                         foreach (var xid in ranks[id][fid][d]) //遍历指定用户id、物品id和日期对应的所有投票者id
-                            if (!sharerank[id].ContainsKey(xid)) sharerank[id].Add(xid, 1.0 / ii / tt); //如果分享排名中没有指定的投票者id，就添加并初始化评分
+                            if (!sharerank[id].ContainsKey(xid))
+                                sharerank[id].Add(xid, 1.0 / ii / tt); //如果分享排名中没有指定的投票者id，就添加并初始化评分
                             else sharerank[id][xid] += 1.0 / ii / tt; //如果分享排名中已有指定的投票者id，就累加评分
                         ii += ranks[id][fid][d].Count; //累加指定用户id、物品id和日期对应的投票者数量
                     }
                 }
             }
 
-            Dictionary<string, Dictionary<string, HashSet<string>>> dataLF = new Dictionary<string, Dictionary<string, HashSet<string>>>(), //初始化dataLF，键为用户id，值为一个字典，该字典的键为物品id，值为投票者id的集合
-                dataItemLF = new Dictionary<string, Dictionary<string, HashSet<string>>>(); //初始化dataItemLF，键为物品id，值为一个字典，该字典的键为用户id，值为投票者id的集合
+            Dictionary<string, Dictionary<string, HashSet<string>>> dataLF =
+                    new Dictionary<string,
+                        Dictionary<string, HashSet<string>>>(), //初始化dataLF，键为用户id，值为一个字典，该字典的键为物品id，值为投票者id的集合
+                dataItemLF =
+                    new Dictionary<string,
+                        Dictionary<string, HashSet<string>>>(); //初始化dataItemLF，键为物品id，值为一个字典，该字典的键为用户id，值为投票者id的集合
 
             var items = new Dictionary<string, List<DateTime>>(); //初始化items，键为物品id，值为日期的列表
             var itemusers = new Dictionary<string, HashSet<string>>(); //初始化itemusers，键为物品id，值为用户id的集合
@@ -508,66 +387,65 @@ namespace tianchi
 
             //此代码的核心策略是通过遍历数据集中的所有链接信息，提取并统计各种信息，以便于后续的预测任务。
             foreach (var d in data.Keys.WithProgressBar("Processing 4...")) //遍历所有的日期
+            foreach (var llk in data[d]) //遍历指定日期的所有链接信息
             {
-                foreach (var llk in data[d]) //遍历指定日期的所有链接信息
+                itemid = llk.ItemID; //获取物品ID
+                id1 = llk.UserID; //获取用户ID
+                id2 = llk.VoterID; //获取投票者ID
+                userresptime[id2].Add(d); //将日期添加到指定投票者的响应时间
+
+                responseall[id2].Add(itemid); //将物品ID添加到指定投票者的响应集合中
+                if (!sharetrainitem[id1].ContainsKey(itemid)) //如果分享训练物品字典中指定用户对应的字典没有指定物品ID
+                    sharetrainitem[id1].Add(itemid, new SortedSet<DateTime>()); //则添加物品ID并初始化日期集合
+                sharetrainitem[id1][itemid].Add(d); //将日期添加到指定用户和物品ID的分享训练物品集合中
+                if (!users[id1].Neighbor.ContainsKey(id2)) //如果指定用户的邻居字典没有指定投票者ID
                 {
-                    itemid = llk.ItemID; //获取物品ID
-                    id1 = llk.UserID; //获取用户ID
-                    id2 = llk.VoterID; //获取投票者ID
-                    userresptime[id2].Add(d); //将日期添加到指定投票者的响应时间
-
-                    responseall[id2].Add(itemid); //将物品ID添加到指定投票者的响应集合中
-                    if (!sharetrainitem[id1].ContainsKey(itemid)) //如果分享训练物品字典中指定用户对应的字典没有指定物品ID
-                        sharetrainitem[id1].Add(itemid, new SortedSet<DateTime>()); //则添加物品ID并初始化日期集合
-                    sharetrainitem[id1][itemid].Add(d); //将日期添加到指定用户和物品ID的分享训练物品集合中
-                    if (!users[id1].Neighbor.ContainsKey(id2)) //如果指定用户的邻居字典没有指定投票者ID
-                    {
-                        netrelation[id1].Add(id2, new Dictionary<int, Dictionary<string, double>>()); //在网络关系字典中添加投票者ID并初始化内层字典
-                        users[id1].Neighbor.Add(id2, new List<DateTime>()); //在用户字典的邻居字典中添加投票者ID并初始化日期列表
-                    }
-
-                    for (var ii = 0; ii < 4; ++ii) //遍历0到3的所有数字
-                        if (!netrelation[id1][id2].ContainsKey(ii)) //如果网络关系字典中指定用户和投票者对应的字典没有指定数字
-                            netrelation[id1][id2].Add(ii, new Dictionary<string, double>()); //则添加数字并初始化内层字典
-
-                    //以下四个if-else结构对应四种物品信息：类别一级ID、类别ID、商店ID和品牌ID，用于在网络关系字典中统计各类物品信息的出现次数
-                    if (!netrelation[id1][id2][0].ContainsKey(itemsinfo[itemid].CateLevelOneId))
-                        netrelation[id1][id2][0].Add(itemsinfo[itemid].CateLevelOneId, 1);
-                    else netrelation[id1][id2][0][itemsinfo[itemid].CateLevelOneId]++;
-                    if (!netrelation[id1][id2][1].ContainsKey(itemsinfo[itemid].CateId))
-                        netrelation[id1][id2][1].Add(itemsinfo[itemid].CateId, 1);
-                    else netrelation[id1][id2][1][itemsinfo[itemid].CateId]++;
-                    if (!netrelation[id1][id2][2].ContainsKey(itemsinfo[itemid].ShopId))
-                        netrelation[id1][id2][2].Add(itemsinfo[itemid].ShopId, 1);
-                    else netrelation[id1][id2][2][itemsinfo[itemid].ShopId]++;
-                    if (!netrelation[id1][id2][3].ContainsKey(itemsinfo[itemid].BrandId))
-                        netrelation[id1][id2][3].Add(itemsinfo[itemid].BrandId, 1);
-                    else netrelation[id1][id2][3][itemsinfo[itemid].BrandId]++;
-
-                    //添加日期到指定用户和投票者的邻居日期列表，添加日期到指定投票者的响应时间列表，添加物品ID到指定用户和投票者的物品ID列表
-                    users[id1].Neighbor[id2].Add(d);
-                    users[id2].ResponesTime.Add(d);
-                    users[id1].ItemID.Add(llk.ItemID);
-                    users[id2].ItemID.Add(llk.ItemID);
-
-                    if (!items.ContainsKey(llk.ItemID)) //如果物品字典没有指定物品ID
-                        items.Add(llk.ItemID, new List<DateTime>()); //则添加物品ID并初始化日期列表
-                    items[llk.ItemID].Add(d); //将日期添加到指定物品ID的日期列表中
-
-                    //以下三个if结构对应物品用户字典、物品接收字典和响应物品字典，用于将指定用户和/或投票者添加到指定物品ID的相关字典中
-                    if (!itemusers.ContainsKey(itemid)) itemusers.Add(itemid, new HashSet<string>());
-                    itemusers[itemid].Add(id1);
-                    itemusers[itemid].Add(id2);
-                    if (!itemreceive[itemid].ContainsKey(id1)) itemreceive[itemid].Add(id1, new HashSet<string>());
-                    if ((dtmax - d).TotalDays < 30) activefrenq[id2]++;
-                    itemreceive[itemid][id1].Add(id2);
-                    if (!responseitems[id2].ContainsKey(id1)) responseitems[id2].Add(id1, new HashSet<string>());
-                    if (!shareresponse[id2].ContainsKey(id1)) shareresponse[id2].Add(id1, new List<double>());
-                    shareresponse[id2][id1].Add(Math.Exp(-0.1 * (d - sharetrainitem[id1][itemid].Min()).TotalHours));
-                    responseitems[id2][id1].Add(itemid);
-                    allNeigbors[id1]["F"].Add(id2);
-                    allNeigbors[id2]["L"].Add(id1);
+                    netrelation[id1]
+                        .Add(id2, new Dictionary<int, Dictionary<string, double>>()); //在网络关系字典中添加投票者ID并初始化内层字典
+                    users[id1].Neighbor.Add(id2, new List<DateTime>()); //在用户字典的邻居字典中添加投票者ID并初始化日期列表
                 }
+
+                for (var ii = 0; ii < 4; ++ii) //遍历0到3的所有数字
+                    if (!netrelation[id1][id2].ContainsKey(ii)) //如果网络关系字典中指定用户和投票者对应的字典没有指定数字
+                        netrelation[id1][id2].Add(ii, new Dictionary<string, double>()); //则添加数字并初始化内层字典
+
+                //以下四个if-else结构对应四种物品信息：类别一级ID、类别ID、商店ID和品牌ID，用于在网络关系字典中统计各类物品信息的出现次数
+                if (!netrelation[id1][id2][0].ContainsKey(itemsinfo[itemid].CateLevelOneId))
+                    netrelation[id1][id2][0].Add(itemsinfo[itemid].CateLevelOneId, 1);
+                else netrelation[id1][id2][0][itemsinfo[itemid].CateLevelOneId]++;
+                if (!netrelation[id1][id2][1].ContainsKey(itemsinfo[itemid].CateId))
+                    netrelation[id1][id2][1].Add(itemsinfo[itemid].CateId, 1);
+                else netrelation[id1][id2][1][itemsinfo[itemid].CateId]++;
+                if (!netrelation[id1][id2][2].ContainsKey(itemsinfo[itemid].ShopId))
+                    netrelation[id1][id2][2].Add(itemsinfo[itemid].ShopId, 1);
+                else netrelation[id1][id2][2][itemsinfo[itemid].ShopId]++;
+                if (!netrelation[id1][id2][3].ContainsKey(itemsinfo[itemid].BrandId))
+                    netrelation[id1][id2][3].Add(itemsinfo[itemid].BrandId, 1);
+                else netrelation[id1][id2][3][itemsinfo[itemid].BrandId]++;
+
+                //添加日期到指定用户和投票者的邻居日期列表，添加日期到指定投票者的响应时间列表，添加物品ID到指定用户和投票者的物品ID列表
+                users[id1].Neighbor[id2].Add(d);
+                users[id2].ResponesTime.Add(d);
+                users[id1].ItemID.Add(llk.ItemID);
+                users[id2].ItemID.Add(llk.ItemID);
+
+                if (!items.ContainsKey(llk.ItemID)) //如果物品字典没有指定物品ID
+                    items.Add(llk.ItemID, new List<DateTime>()); //则添加物品ID并初始化日期列表
+                items[llk.ItemID].Add(d); //将日期添加到指定物品ID的日期列表中
+
+                //以下三个if结构对应物品用户字典、物品接收字典和响应物品字典，用于将指定用户和/或投票者添加到指定物品ID的相关字典中
+                if (!itemusers.ContainsKey(itemid)) itemusers.Add(itemid, new HashSet<string>());
+                itemusers[itemid].Add(id1);
+                itemusers[itemid].Add(id2);
+                if (!itemreceive[itemid].ContainsKey(id1)) itemreceive[itemid].Add(id1, new HashSet<string>());
+                if ((dtmax - d).TotalDays < 30) activefrenq[id2]++;
+                itemreceive[itemid][id1].Add(id2);
+                if (!responseitems[id2].ContainsKey(id1)) responseitems[id2].Add(id1, new HashSet<string>());
+                if (!shareresponse[id2].ContainsKey(id1)) shareresponse[id2].Add(id1, new List<double>());
+                shareresponse[id2][id1].Add(Math.Exp(-0.1 * (d - sharetrainitem[id1][itemid].Min()).TotalHours));
+                responseitems[id2][id1].Add(itemid);
+                allNeigbors[id1]["F"].Add(id2);
+                allNeigbors[id2]["L"].Add(id1);
             }
 
             // 该段代码主要做了两件事。首先，它归一化了所有用户的活动频率。这是通过获取最大活动频率并将每个用户的活动频率除以最大活动频率实现的。
@@ -584,22 +462,18 @@ namespace tianchi
                 activefrenq[iid] = (activefrenq[iid] + 0.001) / actmax;
             // 遍历网络关系字典中的所有用户ID
             foreach (var iid in netrelation.Keys.WithProgressBar("Processing 6..."))
-            {
                 // 遍历指定用户的所有邻居用户
-                foreach (var fid in netrelation[iid].Keys)
-                {
-                    // 遍历指定用户和邻居用户的所有物品信息
-                    foreach (var xid in netrelation[iid][fid].Keys)
-                    {
-                        // 计算指定用户和邻居用户的所有物品信息的总值
-                        var yy = netrelation[iid][fid][xid].Values.Sum();
-                        // 创建一个列表用于存储所有在物品信息中出现的物品ID
-                        var tmparr = new List<string>(netrelation[iid][fid][xid].Keys);
-                        // 遍历物品信息中的所有物品ID，并对每个物品的信息进行归一化处理
-                        foreach (var mid in tmparr)
-                            netrelation[iid][fid][xid][mid] = netrelation[iid][fid][xid][mid] * 1.0 / yy;
-                    }
-                }
+            foreach (var fid in netrelation[iid].Keys)
+                // 遍历指定用户和邻居用户的所有物品信息
+            foreach (var xid in netrelation[iid][fid].Keys)
+            {
+                // 计算指定用户和邻居用户的所有物品信息的总值
+                var yy = netrelation[iid][fid][xid].Values.Sum();
+                // 创建一个列表用于存储所有在物品信息中出现的物品ID
+                var tmparr = new List<string>(netrelation[iid][fid][xid].Keys);
+                // 遍历物品信息中的所有物品ID，并对每个物品的信息进行归一化处理
+                foreach (var mid in tmparr)
+                    netrelation[iid][fid][xid][mid] = netrelation[iid][fid][xid][mid] * 1.0 / yy;
             }
 
             // 声明两个整型变量 k1 和 k2，以及一个双精度浮点型变量 sim
@@ -700,12 +574,12 @@ namespace tianchi
             // 这些数据结构用于在后续代码中进行进一步的处理和分析。这段代码的主要策略就是通过将测试数据存储在多个数据结构中，
             // 以便能够从多个角度对数据进行分析，这样可以更好地进行特征工程。
             // 遍历测试数据
-            foreach (JsonData testdata in testjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 测试数据..."))
+            foreach (var testdata in testjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 测试数据..."))
             {
                 id1 = testdata[1].ToString(); // 获取id1
                 itemid = testdata[2].ToString(); // 获取itemid
                 var testdate = DateTime.Parse(testdata[3].ToString()); // 获取并解析日期
-                                                                       // 如果shareitems字典不包含id1，则添加
+                // 如果shareitems字典不包含id1，则添加
                 if (!shareitems.ContainsKey(id1)) shareitems.Add(id1, new Dictionary<string, List<DateTime>>());
                 // 如果shareitems[id1]不包含itemid，则添加
                 if (!shareitems[id1].ContainsKey(itemid)) shareitems[id1].Add(itemid, new List<DateTime>());
@@ -719,12 +593,14 @@ namespace tianchi
                     shareIDs.Add(itemid, new Dictionary<string, List<DateTime>>());
                     shareNumber.Add(itemid, new Dictionary<string, int>());
                 }
+
                 // 如果shareIDs[itemid]不包含id1，则添加
                 if (!shareIDs[itemid].ContainsKey(id1))
                 {
                     shareIDs[itemid].Add(id1, new List<DateTime>());
                     shareNumber[itemid].Add(id1, 0);
                 }
+
                 // 将测试日期添加到shareIDs[itemid][id1]的列表中，并增加shareNumber[itemid][id1]的次数
                 shareIDs[itemid][id1].Add(testdate);
                 shareNumber[itemid][id1]++;
@@ -756,7 +632,8 @@ namespace tianchi
             // 并且对用户频率和用户时间进行了归一化处理。这些特征都可能对预测voter_id有所帮助。
 
             // 定义用户频率和用户时间字典
-            Dictionary<string, double> userfreq = new Dictionary<string, double>(), usertimes = new Dictionary<string, double>();
+            Dictionary<string, double> userfreq = new Dictionary<string, double>(),
+                usertimes = new Dictionary<string, double>();
 
             // 遍历用户
             foreach (var iid in users.Keys.WithProgressBar("Processing 8..."))
@@ -847,10 +724,10 @@ namespace tianchi
                 //}
 
                 // 更新进度条
-                // if (++kx % 100 == 0) Text = kx.ToString() + "  " + kn.ToString();
+                if (++kx % 100 == 0) Text = kx.ToString() + "  " + kn.ToString();
 
                 // 刷新应用
-                // Application.DoEvents();
+                Application.DoEvents();
 
                 // 为当前用户初始化相似的用户集
                 users[iid].SimLusers = new Dictionary<string, double>();
@@ -862,8 +739,8 @@ namespace tianchi
                 // 创建一个HashSet用于存储相关的用户
                 var backusers = new HashSet<string>();
                 foreach (var itemiid in users[iid].ItemID)
-                    foreach (var zid in itemusers[itemiid])
-                        backusers.Add(zid);
+                foreach (var zid in itemusers[itemiid])
+                    backusers.Add(zid);
 
                 // 循环遍历相关用户
                 foreach (var fid in backusers)
@@ -908,24 +785,20 @@ namespace tianchi
 
                 // 遍历simUser字典并添加到SimLusers字典中
                 foreach (var dd in simUser.Keys)
-                    foreach (var fid in simUser[dd])
-                        users[iid].SimLusers.Add(fid, -dd);
+                foreach (var fid in simUser[dd])
+                    users[iid].SimLusers.Add(fid, -dd);
             }
-            
+
 
             // 这段代码主要在进行准备工作，为预测模型准备所需的各种数据结构，
             // 包括记录不同数量的字典、添加数量的字典、订阅内容的字典、已经添加的内容的字典、
             // 回溯添加的内容的字典、已经添加的数量的字典、用户分类数量的字典等。
             // 同时，它还为每个类别类型统计了用户的分类信息的数量。
             // 通过对用户的分类信息进行详细的统计和记录，可以为预测模型提供更全面的数据，进而提高预测的准确性。
-            // 创建一个用于存储不同数量的字典
-            var diffnum = new Dictionary<int, int>();
-            // 设置候选数量为5
+            // 设置候选数量为6
             var candNum = 6;
             // 创建一个记录添加数量的字典
             var AddNum = new Dictionary<string, Dictionary<string, int>>();
-            // 对于每个候选数量，初始化diffnum字典
-            for (var ii = 0; ii < candNum; ++ii) diffnum.Add(ii, 0);
             // 创建一个新的字典，用于存储订阅内容
             var subnew = new Dictionary<string, List<string>>();
             // 创建字典，用于存储已经添加的内容和回溯添加的内容
@@ -944,43 +817,24 @@ namespace tianchi
                 foreach (var id in userclassinfo[xid].Keys)
                     usersClassNum[xid].Add(id, userclassinfo[xid][id].Values.Sum());
             }
+
             // 创建一个变量ch
-            // var ch = 0;
+            var ch = 0;
             // 创建一个新的HashSet用于存储布尔用户
             var boolusers = new HashSet<string>();
-            // 记录大V用户分享的预测用户缓存，多次利用
-            var bigVdataNewShare = new Dictionary<string, Dictionary<string, List<String>>>();
-            // 记录大V用户分享的预测用户的使用索引
-            var bigVdataNewShareIndex = new Dictionary<string, Dictionary<string, int>>();
+
 
             data.Clear();
             // 这段代码首先遍历了测试数据集，对于每一条测试数据，它都会解析出相应的用户ID和物品ID，然后在几个关键字典（例如AddNum和receivedata）中为这两个ID添加或更新记录。
             // 接着，如果用户字典（users）中存在这个用户ID，那么它会为这个用户初始化几个用于存储各种得分的排序字典。
             // 最后，它会计算并设置一个名为att的属性，它依赖于AddNum字典中某用户ID和项目ID的数量。这部分代码的
-            
-            // 记录大V涉及的item及其数量
-            var bigVtestShareItem = new Dictionary<string, Dictionary<string, int>>();
             // 遍历测试数据集
-            foreach (var vid in bigVlist.WithProgressBar("Processing 查找测试集中的大V分享..."))
+            foreach (var testdata in testjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 结果输出..."))
             {
-                foreach (JsonData testdata in testjsonData)
-                {
-                    id1 = testdata[1].ToString();
-                    if(id1!=vid)
-                        continue;
-                    //找到了vid
-                    if(!bigVtestShareItem.ContainsKey(vid)) bigVtestShareItem.Add(vid, new Dictionary<string, int>());
-                    itemid = testdata[2].ToString();
-                    if(!bigVtestShareItem[vid].ContainsKey(itemid)) bigVtestShareItem[vid].Add(itemid, 0);
-                    bigVtestShareItem[vid][itemid]++;
-                }
-            }
-            foreach (JsonData testdata in testjsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 结果输出..."))
-            {
-                // // 每处理100条数据更新一次显示的文本
-                // if (++ch % 100 == 0) Text = ch.ToString();
-                // // 进行界面更新
-                // Application.DoEvents();
+                // 每处理100条数据更新一次显示的文本
+                if (++ch % 100 == 0) Text = ch.ToString();
+                // 进行界面更新
+                Application.DoEvents();
                 // 创建一个结果列表
                 var res = new List<string>();
                 // 创建一个链接信息的对象
@@ -988,39 +842,6 @@ namespace tianchi
                 // 设置对象的用户ID和物品ID
                 id1 = linfo.UserID = testdata[1].ToString();
                 itemid = linfo.ItemID = testdata[2].ToString();
-                var V = false;
-                candNum = 6;
-                // 检查id1是不是大V
-                if (bigVlist.Contains(id1))
-                {
-                    V = true;
-                    if (!bigVdataNewShare.ContainsKey(id1))
-                    {
-                        bigVdataNewShare[id1] = new Dictionary<string, List<string>>();
-                        if (!bigVdataNewShareIndex.ContainsKey(id1))
-                            bigVdataNewShareIndex[id1]= new Dictionary<string, int>();
-                    }
-
-                    if (!bigVdataNewShare[id1].ContainsKey(itemid))
-                    {
-                        bigVdataNewShare[id1][itemid] = new List<string>();
-                        if(!bigVdataNewShareIndex[id1].ContainsKey(itemid))
-                            bigVdataNewShareIndex[id1][itemid] = 0;
-                    }
-
-                    if (bigVdataNewShare[id1][itemid].Count > 0)
-                    {
-                        var index = bigVdataNewShareIndex[id1][itemid];
-                        res = bigVdataNewShare[id1][itemid].GetRange(index + 1, 5);
-                        bigVdataNewShareIndex[id1][itemid]++;
-                        subnew.Add(testdata[0].ToString(), res);
-                        continue;
-                    }
-                    
-                    // 初始化大V分享item的预测
-                    var needNum = bigVtestShareItem[id1][itemid];
-                    candNum = needNum+1;
-                }
                 // 解析测试日期
                 var testdate = DateTime.Parse(testdata[3].ToString());
                 // 在AddNum字典中为该用户ID添加新的项目ID键，如果该用户ID不存在，则先添加该用户ID
@@ -1056,7 +877,7 @@ namespace tianchi
                     // 将用户ID添加到处理过的用户集合中
                     boolusers.Add(id1);
                     // 进行界面更新
-                    // Application.DoEvents();
+                    Application.DoEvents();
                     // 创建一个字典用于保存反向用户信息
                     var backuser = new Dictionary<string, Dictionary<string, double>>();
                     // 遍历每个类别
@@ -1064,15 +885,13 @@ namespace tianchi
                     {
                         // 如果用户类别信息中没有这个类别和用户ID的键值对，就添加进去
                         if (!userclassinfo[mid].ContainsKey(id1))
-                        {
                             userclassinfo[mid].Add(id1, new Dictionary<string, int>());
-                        }
                         // 创建一个HashSet用于保存反向临时用户
                         var backtmp = new HashSet<string>();
                         // 遍历每个用户ID在某一类别下的所有项目ID，然后添加到反向临时用户集合中
                         foreach (var xid in userclassinfo[mid][id1].Keys)
-                            foreach (var fid in itemuserclassinfo[mid][xid])
-                                backtmp.Add(fid);
+                        foreach (var fid in itemuserclassinfo[mid][xid])
+                            backtmp.Add(fid);
                         // 从反向临时用户集合中移除当前用户已经有的相似用户，然后移除当前用户自己
                         backtmp = new HashSet<string>(backtmp.Except(users[id1].SimLusers.Keys));
                         backtmp.Remove(id1);
@@ -1091,6 +910,7 @@ namespace tianchi
                             backuser[fid].Add(mid, sim);
                         }
                     }
+
                     // 遍历反向用户字典
                     foreach (var fid in backuser.Keys)
                     {
@@ -1115,29 +935,17 @@ namespace tianchi
                     double r = 0, sir = 1, fir = 1, kir = 0, expN = 0.1;
 
                     if (dataLF.ContainsKey(id1) && dataLF[id1].ContainsKey(fid))
-                    {
                         // 如果dataLF字典中存在以id1为键的键值对，且以fid为键的键值对，进行下一步操作
-
                         foreach (var ssitem in dataLF[id1][fid])
-                        {
                             // 对于dataLF[id1][fid]中的每个项目(ssitem)，进行下面的操作
-
                             if (dataItemLF.ContainsKey(fid) && dataItemLF[fid].ContainsKey(ssitem))
-                            {
                                 // 如果dataItemLF中存在以fid为键的键值对，并且以ssitem为键的键值对，进行下面的操作
-
                                 kir += dataItemLF[fid][ssitem].Count; // 计算每一个项目的二次转发次数
-                            }
-                        }
-                    }
                     kir = Math.Exp(0.01 * kir); // 对kir应用指数函数进行转换，使得大的kir值不会对后续计算产生过大影响
 
                     if (users[fid].Ratio[0].ContainsKey(itemsinfo[itemid].CateLevelOneId))
-                    {
                         // 如果用户fid的Ratio的第一项包含itemsinfo中的项目的CateLevelOneId，进行下面的操作
-
                         sir *= 1 + 6 * users[fid].Ratio[0][itemsinfo[itemid].CateLevelOneId]; // 更新sir值
-                    }
 
                     // 同上，处理其他三个类别的数据
                     if (users[fid].Ratio[1].ContainsKey(itemsinfo[itemid].CateId))
@@ -1184,7 +992,7 @@ namespace tianchi
                         resneigbor = 1.0 * kk1 / kk2 * (1 - 0.5 / Math.Sqrt(kk2));
                         // 计算resneigbor，基于所有回应的计数
 
-                        rkdt = Math.Exp((users[id1].Neighbor[fid].Count - kk1) / kk1);
+                        rkdt = Math.Exp((1.0 * users[id1].Neighbor[fid].Count - kk1) / kk1);
                         // 计算rkdt，基于用户的邻居计数和kk1的差值
 
                         foreach (var it in users[id1].Neighbor[fid])
@@ -1220,7 +1028,8 @@ namespace tianchi
                         ritem += Math.Exp(-0.06 * tsp);
                         // 计算ritem，基于测试日期和it之间的时间差，权重为0.06
                     }
-                    
+
+
                     r = sir * ritem * users[id1].SimLusers[fid] * users[fid].Level * 0.1; // 计算一个预测值，根据各种已经计算出的变量
                     r = r * fir * kir; // 继续根据其他变量调整预测值
                     if (sharerank[id1].ContainsKey(fid)) r *= sharerank[id1][fid]; // 如果sharerank字典中包含对应键值对，继续调整预测值
@@ -1234,6 +1043,8 @@ namespace tianchi
                     // 各种类型的邻居对应不同的处理和权重。
                     if (allNeigbors[id1]["F"].Contains(fid))
                     {
+                        // 如果id1的所有邻居中，类别"F"包含fid，进行下面的操作
+
                         r *= rsim * resneigbor * rkdt; // 使用rsim, resneigbor和rkdt值来更新r
                         r *= Math.Exp(1.0 / responseitems[fid].Count); // 使用responseitems中fid的计数来更新r
 
@@ -1245,8 +1056,10 @@ namespace tianchi
                     }
                     else if (allNeigbors[id1]["L"].Contains(fid))
                     {
+                        // 如果id1的所有邻居中，类别"L"包含fid，进行类似的操作，但这次不包含rkdt
+
                         r *= rsim * resneigbor;
-                        r *=expN * responseitems[fid].Count;
+                        r *= Math.Exp(expN * responseitems[fid].Count);
 
                         if (!scorL.ContainsKey(-r)) scorL.Add(-r, new List<string>());
                         scorL[-r].Add(fid);
@@ -1255,7 +1068,7 @@ namespace tianchi
                     {
                         // 如果id1的所有邻居中，类别"FF"或"LF"包含fid，进行类似的操作，但这次不包含rsim
 
-                        r *= expN * responseitems[fid].Count;
+                        r *= Math.Exp(expN * responseitems[fid].Count);
 
                         if (!scorX.ContainsKey(-r)) scorX.Add(-r, new List<string>());
                         scorX[-r].Add(fid);
@@ -1264,7 +1077,7 @@ namespace tianchi
                     {
                         // 如果id1的所有邻居中，类别"XF"包含fid，进行类似的操作，这次也不包含rsim
 
-                        r *= expN * responseitems[fid].Count;
+                        r *= Math.Exp(expN * responseitems[fid].Count);
 
                         if (!scorXF.ContainsKey(-r)) scorXF.Add(-r, new List<string>());
                         scorXF[-r].Add(fid);
@@ -1273,7 +1086,7 @@ namespace tianchi
                     {
                         // 如果id1的所有邻居中没有包含fid，进行类似的操作，这次也不包含rsim
 
-                        r *= expN * responseitems[fid].Count;
+                        r *= Math.Exp(expN * responseitems[fid].Count);
 
                         if (!scor.ContainsKey(-r)) scor.Add(-r, new List<string>());
                         scor[-r].Add(fid);
@@ -1320,7 +1133,7 @@ namespace tianchi
                     // 初始化rsim为0，rsim将用来存储相似度信息
 
                     if (netrelation[id1].ContainsKey(fid))
-                    // 检查网络关系中是否包含id1和fid的信息
+                        // 检查网络关系中是否包含id1和fid的信息
                     {
                         // 下面的几行代码类似于更新sir的操作，只是它是在网络关系存在的情况下，对fir进行更新，检查的是项目的一级分类、二级分类、商店ID和品牌ID
                         if (netrelation[id1][fid][0].ContainsKey(itemsinfo[itemid].CateLevelOneId))
@@ -1338,7 +1151,7 @@ namespace tianchi
 
                     ritem = 0;
                     foreach (var it in users[fid].ResponesTime)
-                    // 遍历用户fid的所有响应时间
+                        // 遍历用户fid的所有响应时间
                     {
                         tsp = (testdate - it).TotalDays;
                         // 计算测试日期与响应时间的差值（天数）
@@ -1346,7 +1159,7 @@ namespace tianchi
                         ritem += Math.Exp(-0.06 * tsp);
                         // 使用指数函数调整差值，累加到ritem，该操作将最近的响应时间赋予更大的权重
                     }
-                    
+
                     r = sir * ritem * users[id1].SimFusers[fid] * users[fid].Level * 0.1;
                     // 计算预测结果r，其中包含了sir，ritem，用户之间的相似度，用户fid的级别等信息
 
@@ -1380,10 +1193,6 @@ namespace tianchi
                 // 这段代码主要是在给定的用户id1和项目itemid的上下文中，遍历所有的预测结果分数以及对应的用户。
                 // 在遍历过程中，如果满足一些特定的条件，就将该用户添加到候选用户列表中。
                 // 这个过程主要考虑了用户对项目的回应、已添加列表和候选用户数量等信息，根据这些信息筛选出可能的候选用户。
-                var wrt = id1 + "\t" + allNeigbors[id1]["F"].Count.ToString() + "\t" +
-                      shareitems[id1][itemid].Count
-                          .ToString();
-                // 创建一个字符串wrt，其中包含用户id1、用户id1的"F"类型邻居数量以及用户id1与特定项目itemid共享的次数
                 if (!AddedNumber.ContainsKey(itemid)) AddedNumber.Add(itemid, new Dictionary<string, int>());
                 // 检查字典AddedNumber中是否包含itemid，如果不包含则添加一个新的条目，键是itemid，值是一个新的字典，存储该项目的附加编号
                 if (!AddedNumber[itemid].ContainsKey(id1)) AddedNumber[itemid].Add(id1, 0);
@@ -1410,6 +1219,7 @@ namespace tianchi
                         else break;
                         // 否则，结束循环
                     }
+
                     if (res.Count == candNum) break;
                     // 如果候选用户列表的数量达到了给定的数量，就结束循环
                 }
@@ -1440,9 +1250,11 @@ namespace tianchi
                             else break;
                             // 否则，结束循环
                         }
+
                         if (res.Count == candNum) break;
                         // 如果候选用户列表的数量达到了给定的数量，就结束循环
                     }
+
                 //以下的两段代码与上述代码类似，但是是对不同的字典（scorX, scorT1）进行处理。相同的策略被应用于不同的数据源。
                 if (res.Count < candNum)
                     //二阶
@@ -1486,6 +1298,7 @@ namespace tianchi
 
                         if (res.Count == candNum) break;
                     }
+
                 // 三阶
                 // 这段代码延续了前面的策略，通过迭代四个不同的字典（scorXF、scorT2、scor、scorT3）并对它们进行相同的处理，来在不同的数据源上应用相同的策略。
                 // 它仍然是在给定的用户id1和项目itemid的上下文中，检查用户的接收情况、回应项目和已添加列表，来筛选出可能的候选用户。
@@ -1515,6 +1328,7 @@ namespace tianchi
                             else break;
                             // 否则，结束循环
                         }
+
                         if (res.Count == candNum) break;
                         // 如果候选用户列表的数量达到了给定的数量，就结束循环
                     }
@@ -1687,23 +1501,25 @@ namespace tianchi
                                 res[4] = xid;
                                 // 把候选用户列表中的第五个位置用xid填充
                             }
+
                             shflag = true;
                             // 设置shflag为true
                             break;
                             // 结束循环
                         }
                     }
+
                     if (shflag) break;
                     // 如果shflag为true，就结束循环
                 }
 
 
                 if (res.Count == candNum || (users[id1].SimLusers.Count == 5 && res.Count == candNum - 1))
-                // 检查候选者列表res是否已满，或者用户id1的相似用户列表是否已满且res的数量比预定的候选者数量少1
+                    // 检查候选者列表res是否已满，或者用户id1的相似用户列表是否已满且res的数量比预定的候选者数量少1
 
                 {
                     if (haveadded.ContainsKey(itemid) && haveadded[itemid].ContainsKey(id1)
-                                                          && haveadded[itemid][id1].Contains(res[0]))
+                                                      && haveadded[itemid][id1].Contains(res[0]))
                         res.Remove(res[0]);
                     // 如果itemid、id1和res中的第一个元素都存在于haveadded中，则从res中移除res[0]
 
@@ -1711,7 +1527,7 @@ namespace tianchi
                     // 如果候选者列表res已满，移除res的最后一个元素
 
                     if (backadded.ContainsKey(itemid) && backadded[itemid].ContainsKey(id1))
-                    // 检查backadded是否包含了itemid和id1
+                        // 检查backadded是否包含了itemid和id1
 
                     {
                         var nnk = res.Count;
@@ -1724,7 +1540,7 @@ namespace tianchi
                             // 从后向前遍历res
 
                             if (backadded[itemid][id1].Contains(res[ii]))
-                            // 如果backadded包含了res[ii]
+                                // 如果backadded包含了res[ii]
 
                             {
                                 rtmp.Add(res[ii]);
@@ -1738,7 +1554,7 @@ namespace tianchi
                         // 更新res的元素数量
 
                         if (nnk < candNum - 1)
-                        // 如果res的元素数量比预定的候选者数量少1
+                            // 如果res的元素数量比预定的候选者数量少1
 
                         {
                             var ttk = rtmp.Count;
@@ -1775,7 +1591,7 @@ namespace tianchi
                     backadded[itemid][id1].Add(res[0]);
                     // 在backadded[itemid][id1]中添加res的第一个元素
                     if (AddedNumber[itemid][id1] % (candNum - 1) == 0)
-                    // 如果AddedNumber[itemid][id1]模(candNum - 1)等于0
+                        // 如果AddedNumber[itemid][id1]模(candNum - 1)等于0
                     {
                         if (!haveadded.ContainsKey(itemid))
                             haveadded.Add(itemid, new Dictionary<string, HashSet<string>>());
@@ -1793,16 +1609,15 @@ namespace tianchi
                 // 这段代码主要完成了对res列表的更新和操作。当res列表包含元素时，如果backadded中存在对应的itemid和id1，
                 // 就会将res中存在于backadded的元素移入rtmp，并在res的前部或者后部（取决于res是否为空）加入rtmp的元素。
                 // 然后，会在backadded中的相应位置添加res的首个元素。接下来，代码从shareIDs中移除了itemid对应的id1，
-                // 然后在wrt字符串中加入id1、itemid以及res中各元素在responsenum[id1]中的数量。最后，代码将wrt字符串写入文件，
-                // 并在subnew中添加一个键值对，键为testdata[0]的字符串形式，值为res。同时，还将diffnum中res数量对应的值增加1。
+                // 并在subnew中添加一个键值对，键为testdata[0]的字符串形式，值为res。
                 // 这段代码通过这些操作，进一步更新了候选用户列表并进行了记录。
                 else if (res.Count > 0)
-                // 检查res列表是否有元素，如果有则执行以下操作
+                    // 检查res列表是否有元素，如果有则执行以下操作
                 {
                     var mk = res.Count;
                     // 获取res的元素数量
                     if (backadded.ContainsKey(itemid) && backadded[itemid].ContainsKey(id1))
-                    // 检查backadded是否包含了itemid和id1
+                        // 检查backadded是否包含了itemid和id1
                     {
                         var nnk = mk;
                         // 获取res的元素数量
@@ -1811,13 +1626,14 @@ namespace tianchi
                         for (var ii = nnk - 1; ii >= 0; --ii)
                             // 从后向前遍历res
                             if (backadded[itemid][id1].Contains(res[ii]))
-                            // 如果backadded包含了res[ii]
+                                // 如果backadded包含了res[ii]
                             {
                                 rtmp.Add(res[ii]);
                                 // 将res[ii]添加到rtmp中
                                 res.Remove(res[ii]);
                                 // 从res中移除res[ii]
                             }
+
                         nnk = res.Count;
                         // 更新res的元素数量
                         var ttk = rtmp.Count;
@@ -1836,6 +1652,7 @@ namespace tianchi
                                 res[ii] = rtmp[jj];
                         // 将rtmp中的元素添加到res中，从第二个元素开始添加
                     }
+
                     if (!backadded.ContainsKey(itemid))
                         backadded.Add(itemid, new Dictionary<string, HashSet<string>>());
                     // 如果backadded中不包含itemid，就在backadded中添加一个新的键值对，键为itemid，值为一个新的字典
@@ -1844,52 +1661,18 @@ namespace tianchi
                     backadded[itemid][id1].Add(res[0]);
                     // 在backadded[itemid][id1]中添加res的第一个元素
                 }
+
                 shareIDs[itemid].Remove(id1);
-                // 从shareIDs的itemid对应的字典中移除键为id1的键值对
-                wrt = "";
-                // 初始化wrt为空字符串
-                wrt = id1 + "\t" + itemid;
-                // 为wrt赋值，值为id1和itemid，中间由制表符分隔
-                foreach (var xxid in res)
-                    // 遍历res列表
-                    if (responsenum[id1].ContainsKey(xxid))
-                        // 如果responsenum[id1]包含xxid
-                        wrt = wrt + "\t" + responsenum[id1][xxid].Count.ToString();
-                // 向wrt添加新的内容，为"\t"和responsenum[id1][xxid]的元素数量
-                ppr.WriteLine(wrt);
-                // 将wrt写入到ppr中
-                diffnum[res.Count]++;
-                // 储存大V本次分享商品的所有预测结果
-                var newRes = res;
-                if (V)
-                {
-                    // 清空newRes
-                    newRes.Clear();
-                    // 将 res 中存在于 bigVfansOrder[id1] 的粉丝筛选出来，并按 bigVfansOrder[id1] 的顺序排序
-                    var fansInRes = res.Where(fan => bigVfansOrder[id1].Contains(fan)).ToList();
-                    fansInRes.Sort((a, b) => bigVfansOrder[id1].IndexOf(a).CompareTo(bigVfansOrder[id1].IndexOf(b)));
-                    // 将 res 中的其他元素添加到 fansInRes
-                    var othersInRes = res.Except(fansInRes).ToList();
-                    // 合并两个列表以形成 newRes
-                    newRes.AddRange(fansInRes);
-                    newRes.AddRange(othersInRes);
-                    bigVdataNewShare[id1][itemid] = newRes;
-                }
-                // 取前五个newRes
-                newRes = newRes.Take(5).ToList();
-                // 将res数量对应的diffnum的值加1
-                subnew.Add(testdata[0].ToString(), newRes);
+                subnew.Add(testdata[0].ToString(), res);
                 // 在subnew中添加一个新的键值对，键为testdata[0]的字符串形式，值为res
-                
             }
 
             // 这段代码主要完成了模型预测结果的序列化和存储。它首先遍历subnew字典的所有键，这些键是各个待预测的triple_id。
             // 然后，对于每一个triple_id，代码创建一个SubmitInfo对象，设置其triple_id属性和candidate_voter_list属性，
             // 然后将该对象添加到submitres列表中。遍历结束后，代码将关闭文件写入器ppr，然后将submitres列表序列化为JSON字符串，
             // 并将该字符串写入到一个名为"submit.json"的文件中。这样，预测的候选voter_id列表就被保存为一个JSON文件。
-            // for (int ii = 0; ii < 6; ++ii) ppr.WriteLine(ii.ToString() + "\t" + diffnum[ii].ToString());
             foreach (var id in subnew.Keys.WithProgressBar("Processing 结果转换..."))
-            // 遍历subnew字典的所有键，这些键应该是一个triple_id的列表，"WithProgressBar"是一个扩展方法，它会显示一个进度条
+                // 遍历subnew字典的所有键，这些键应该是一个triple_id的列表，"WithProgressBar"是一个扩展方法，它会显示一个进度条
             {
                 subtemp = new SubmitInfo();
                 // 创建一个新的SubmitInfo对象
@@ -1900,6 +1683,7 @@ namespace tianchi
                 submitres.Add(subtemp);
                 // 将subtemp对象添加到submitres列表中
             }
+
             ppr.Close();
             // 关闭文件写入器ppr
             var text = JsonSerializer.Serialize(submitres);
