@@ -77,6 +77,11 @@ public class UserIDInfo
     public int Gender { get; set; }
 
     public int Age { get; set; }
+    
+    // 分享次数
+    public int ShareNum { get; set; }
+    // 被分享次数
+    public int BeShareNum { get; set; }
 
     // 临时储存一阶下游
     public List<string> tempNeighborList { get; set; }
@@ -130,18 +135,17 @@ namespace tianchi
             var program = new Program();
             program.NewSumbit();
         }
-
         private void NewSumbit()
         {
-            var ver = true;
+            var ver = false;
             var shareDataPath = "";
             var testDataPath = "";
             var itemDataPath = @"./data/item_info.json"; //定义商品信息数据文件的路径
             var userDataPath = @"./data/user_info.json"; //定义用户信息数据文件的路径
             if (ver)
             {
-                shareDataPath = @"./data/item_share_train_info_09.json"; //定义商品分享数据文件的路径
-                testDataPath = @"./data/item_share_train_info_test_01.json"; //定义测试数据文件的路径
+                shareDataPath = @"./data/item_share_train_info.json"; //定义商品分享数据文件的路径
+                testDataPath = @"./data/item_share_preliminary_test_info.json"; //定义测试数据文件的路径
             }
             else
             {
@@ -242,6 +246,9 @@ namespace tianchi
                 users[id1].ItemID = new HashSet<string>(); //初始化集合，存储用户的项目id信息
                 users[id1].responseTimeZone = new Dictionary<int, double>(); //初始化字典，存储用户的响应时间区信息
                 users[id1].StaticSimUsers = new Dictionary<string, double>(); //初始化字典，存储用户的静态相似用户信息
+                // 分享和被分享次数
+                users[id1].ShareNum = 0; //初始化分享次数为0
+                users[id1].BeShareNum = 0; //初始化响应次数为0
                 netrelation.Add(id1,
                     new Dictionary<string, Dictionary<int, Dictionary<string, double>>>()); //初始化嵌套字典，存储网络关系信息
                 responseitems.Add(id1, new Dictionary<string, HashSet<string>>()); //初始化嵌套字典，存储响应项目信息
@@ -287,14 +294,18 @@ namespace tianchi
             // 这些信息将用于预测阶段。
             foreach (var temp in jsonData.Cast<JsonData>().ToList().WithProgressBar("Processing 训练数据...")) //遍历训练数据
             {
-                var user_id = temp[0]; //提取用户id
-                var item_id = temp[1]; //提取物品id
-                var voter_id = temp[2]; //提取投票者id
-                var timestamp = temp[3]; //提取时间戳
+                var user_id = temp["inviter_id"]; //提取用户id
+                var item_id = temp["item_id"]; //提取物品id
+                var voter_id = temp["voter_id"]; //提取投票者id
+                var timestamp = temp["timestamp"]; //提取时间戳
                 lk = new LinkInfo(); //创建新的LinkInfo实例
                 id1 = lk.UserID = user_id.ToString(); //将用户id转换为字符串并赋值给UserID
                 item = lk.ItemID = item_id.ToString(); //将物品id转换为字符串并赋值给ItemID
                 id2 = lk.VoterID = voter_id.ToString(); //将投票者id转换为字符串并赋值给VoterID
+                // 更新id1用户的分享次数
+                users[id1].ShareNum++; //用户分享次数加1
+                // 更新id2用户的回应次数
+                users[id2].BeShareNum++; //用户回应次数加1
                 dt = DateTime.Parse(timestamp.ToString()); //将时间戳转换为DateTime对象
                 if (!responstimeAllitems[id2].ContainsKey(item))
                     responstimeAllitems[id2].Add(item, new SortedSet<DateTime>()); //如果回应时间列表中没有该项，就添加
@@ -340,7 +351,17 @@ namespace tianchi
 
                 ++n; //增加计数器
             }
-
+            
+            // 储存仅分享用户
+            var shareOnlyUsers = new HashSet<string>(); //创建仅分享用户集合
+            foreach (var user_id in users.Keys) //遍历用户
+            {
+                if (users[user_id].BeShareNum == 0) //如果用户的回应次数为0
+                {
+                    if(users[user_id].ShareNum > 30)
+                        shareOnlyUsers.Add(user_id); //将用户添加到仅分享用户集合中
+                }
+            }
 
             jsonData.Clear();
             userjsonData.Clear();
@@ -823,7 +844,40 @@ namespace tianchi
             // 创建一个新的HashSet用于存储布尔用户
             var boolusers = new HashSet<string>();
 
+            int totalRemovals = 0;
 
+            // 从用户的相似用户中删除shareOnly用户
+            foreach (var user in users.Values)
+            {
+                totalRemovals += RemoveShareOnlyUsers(user.SimFusers);
+                totalRemovals += RemoveShareOnlyUsers(user.SimLusers);
+                totalRemovals += RemoveShareOnlyUsers(user.SimFFusers);
+                totalRemovals += RemoveShareOnlyUsers(user.SimLLusers);
+            }
+
+            Console.WriteLine($"Total removals: {totalRemovals}");
+
+            // Helper function to remove shareOnlyUsers
+            int RemoveShareOnlyUsers(Dictionary<string, double> simUsers)
+            {
+                if (simUsers == null || shareOnlyUsers == null)
+                {
+                    return 0;
+                }
+
+                // 在一次操作中找出和删除所有 shareOnlyUsers
+                var keysToRemove = simUsers.Keys.Where(shareOnlyUsers.Contains).ToList();
+                foreach (var key in keysToRemove)
+                {
+                    simUsers.Remove(key);
+                }
+
+                return keysToRemove.Count; // 返回这个函数删除的元素数量
+            }
+            Console.WriteLine("删除了"+totalRemovals+"个用户");
+
+
+            
             data.Clear();
             // 这段代码首先遍历了测试数据集，对于每一条测试数据，它都会解析出相应的用户ID和物品ID，然后在几个关键字典（例如AddNum和receivedata）中为这两个ID添加或更新记录。
             // 接着，如果用户字典（users）中存在这个用户ID，那么它会为这个用户初始化几个用于存储各种得分的排序字典。
@@ -930,7 +984,6 @@ namespace tianchi
                 foreach (var fid in users[id1].SimLusers.Keys)
                 {
                     // 开始遍历用户id1的相似用户列表
-
                     // 初始化一些变量
                     double r = 0, sir = 1, fir = 1, kir = 0, expN = 0.1;
 

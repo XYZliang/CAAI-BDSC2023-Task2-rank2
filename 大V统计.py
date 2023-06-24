@@ -27,7 +27,6 @@ print('Median number of voter_id:', grouped_df['voter_count'].median())
 # plt.title('Density plot of the number of voter_id')
 # # plt.show()
 
-
 def more(num):
     # 计算 voter_id 数量大于 3 的数量
     num_greate = grouped_df[grouped_df['voter_count'] > num].shape[0]
@@ -35,7 +34,6 @@ def more(num):
     df_greater = grouped_df[grouped_df['voter_count'] > 3]
     result_list = list(df_greater.itertuples(index=False, name=None))[:5]
     print(result_list)
-
 
 more(3)
 more(5)
