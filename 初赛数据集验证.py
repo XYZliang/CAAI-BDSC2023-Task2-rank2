@@ -68,8 +68,8 @@ def check():
 
     if len(test_data) != len(predictions):
         print("error")
-        print(len(test_data))
-        print(len(predictions))
+    print(len(test_data))
+    print(len(predictions))
         # exit()
     # 计算指标
     total_mrr, total_hits_at_5, results = calculate_metrics(test_data, predictions)
