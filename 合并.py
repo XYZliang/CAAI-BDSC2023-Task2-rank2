@@ -1,4 +1,4 @@
-import orjson as json
+import json as json
 # 读取 ./data/item_share_train_info.json和item_share_train_info_B.json
 with open('./data/item_share_train_info.json', 'rb') as f:
     data = json.loads(f.read())

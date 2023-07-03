@@ -1,6 +1,6 @@
 import orjson as json
 
-with open('./bin/x64/Release/submit.json', 'rb') as f:
+with open('./output/result/submitComplete.json', 'rb') as f:
     predictions = json.loads(f.read())
 for item in predictions:
     tid = item['triple_id']
@@ -8,6 +8,3 @@ for item in predictions:
     if len(Plist) > 5:
         print(tid, len(Plist))
         Plist = Plist[:5]
-# 保存
-with open('./bin/x64/Release/submit1.json', 'wb') as f:
-    f.write(json.dumps(predictions))

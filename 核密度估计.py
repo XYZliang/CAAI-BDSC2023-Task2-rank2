@@ -140,8 +140,8 @@ if __name__ == "__main__":
     df = pd.read_csv('./data/模型数据/user_history_False_False_False.json')
     df = initPD(df)
     a = getPfromPdf(getAKdePdf(df, isWorkDay=1), startTime=16 * 60 + 2, timeLength=5)
-    b = getPfromPdf(getDKdePdf(df, isWorkDay=1, userID="0005b30eb7d0182124c853809d726912"), startTime=16 * 60 + 2,
-                    timeLength=5)
-    print("在21：02，用户的平均回流概率为" + str(a))
-    print("在21：02，该名用户的回流概率为" + str(b))
-    print("差值为" + str(a - b))
+    # b = getPfromPdf(getDKdePdf(df, isWorkDay=1, userID="0005b30eb7d0182124c853809d726912"), startTime=16 * 60 + 2,
+    #                 timeLength=5)
+    # print("在21：02，用户的平均回流概率为" + str(a))
+    # print("在21：02，该名用户的回流概率为" + str(b))
+    # print("差值为" + str(a - b))

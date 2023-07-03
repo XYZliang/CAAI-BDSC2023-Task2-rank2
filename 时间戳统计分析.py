@@ -5,7 +5,7 @@ import os
 from tqdm import tqdm
 
 # 读取JSON文件
-with open('./data/item_share_train_info.json', 'rb') as f:
+with open('./data/item_share_test_info_B.json', 'rb') as f:
     data = orjson.loads(f.read())
 
 # 将数据转换为Pandas DataFrame

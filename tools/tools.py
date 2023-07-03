@@ -4,7 +4,6 @@ import copy
 
 from orjson import orjson
 
-from 核概率密度plan2 import *
 from tqdm import tqdm
 # 从训练集中划分出验证集
 def splitValidationFromTraining(data,percentage):
@@ -30,7 +29,7 @@ def statistics(datas,desc,show=False):
         "4":[],
         "5":[],
     }
-    for data in datas:
+    for data in tqdm(datas,desc="统计提交文件每个预测序列的长度"):
         userID = data["triple_id"]
         voters = data["candidate_voter_list"]
         list[str(len(voters))].append(userID)
@@ -50,7 +49,9 @@ def statistics(datas,desc,show=False):
         "5长度数组数量":len(list["5"]),
     }
     if show:
-        print(resultList)
+        for key,num in resultList.items():
+            print(key+":"+str(num))
+        print("不足5个的长度："+str(resultList["0长度数组数量"]+resultList["1长度数组数量"]+resultList["2长度数组数量"]+resultList["3长度数组数量"]+resultList["4长度数组数量"]))
     return resultList
 
 def makeStatistics(datas,savePath):
