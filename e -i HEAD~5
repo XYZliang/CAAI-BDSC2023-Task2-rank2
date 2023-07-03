@@ -1,0 +1,216 @@
+[33mcommit bf968adaaace7b97b3d0e9151c9274f501c2e669[m[33m ([m[1;36mHEAD -> [m[1;32mfinalCode&submitDocuments[m[33m, [m[1;31morigin/finalCode&submitDocuments[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: XYZliang <59312540+XYZliang@users.noreply.github.com>
+Date:   Mon Jul 3 19:03:12 2023 +0800
+
+    Delete CAAI-BDSC2023任务2.数联视界_ppt.pdf
+
+[33mcommit 2cb9bf6ec7ac2c8289dfb33f6c8cc9684276b458[m
+Author: XYZliang <59312540+XYZliang@users.noreply.github.com>
+Date:   Mon Jul 3 16:27:40 2023 +0800
+
+    Delete .vscode directory
+
+[33mcommit 5b3a24b436b386a55788f944882c87712cc6661a[m
+Author: XYZliang <59312540+XYZliang@users.noreply.github.com>
+Date:   Mon Jul 3 16:27:31 2023 +0800
+
+    Delete .vs/tianchi directory
+
+[33mcommit c1d86eab40be48b06f954fe1d546a436b6cf4029[m
+Author: XYZliang <59312540+XYZliang@users.noreply.github.com>
+Date:   Mon Jul 3 16:27:16 2023 +0800
+
+    Delete .run directory
+
+[33mcommit 6202d8d45794167c8ac627998ddd999278d440e9[m
+Author: XYZliang <59312540+XYZliang@users.noreply.github.com>
+Date:   Mon Jul 3 16:27:01 2023 +0800
+
+    Delete .idea directory
+
+[33mcommit 58a65d1f601c5eef8bb50bba6f8b4e952c367b0b[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Mon Jul 3 16:23:45 2023 +0800
+
+    最终提交复赛代码与文件
+    
+    最终提交复赛代码与文件
+
+[33mcommit 83093f72708da740feb18a0b8b7c3359cba05829[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Sat Jun 24 23:09:20 2023 +0800
+
+    剔除高分享不回流用户 -
+
+[33mcommit d8c63331ba0c64d7ba01601a08bb9d23d41c5e59[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Fri Jun 23 20:26:49 2023 +0800
+
+    0.4254 init
+
+[33mcommit 14f90e0b1be0fa6a9e253e3b48055d5b0df7e494[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Fri Jun 23 03:13:10 2023 +0800
+
+    实现大V
+
+[33mcommit b6a1d092de02df6a1d99a03a224520fbb28a8438[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Thu Jun 22 16:48:16 2023 +0800
+
+    double link
+
+[33mcommit 634665fd33791daad61307fba7d9b6b11a134b2f[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Wed Jun 21 02:09:38 2023 +0800
+
+    回流/分享次数  !=0
+    
+    总的MRR: 0.257802095086409
+    总的HITS@5: 0.38647375058073935
+
+[33mcommit 4b0b2ef23d361d091a548201ee9fcb587448d967[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Wed Jun 21 01:04:33 2023 +0800
+
+    new max
+
+[33mcommit 700cb0058ccdfeacc3344cf06a92124b728afd27[m
+Merge: 36856ed d5bdbe6
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Wed Jun 21 01:00:02 2023 +0800
+
+    Merge branch 'master' of https://github.com/XYZliang/CAAI-BDSC2023-Task2
+
+[33mcommit 36856eddc25efef574943a0862bf82ec564948d4[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Wed Jun 21 00:59:59 2023 +0800
+
+    分享/回流倾向-
+    
+    pow 平均5022/5022 [00:09<00:00, 508.78it/s]
+    总的MRR: 0.25747273290415656
+    总的HITS@5: 0.3908375920886706
+    pow 中位
+    总的MRR: 0.2567786110926921
+    总的HITS@5: 0.39097033251476737
+    exp 中位
+    总的MRR: 0.2385422888874304
+    总的HITS@5: 0.38297272184243714
+    不变
+    总的MRR: 0.2542241875179924
+    总的HITS@5: 0.38932766974181987
+
+[33mcommit d5bdbe61c6e046c8e4f98df3ea8b87a7422123a6[m
+Author: XYZliang <59312540+XYZliang@users.noreply.github.com>
+Date:   Tue Jun 20 22:19:44 2023 +0800
+
+    Delete dotnet.yml
+
+[33mcommit dbdef06346236a47bef9e92a6abd8e093361cd94[m
+Merge: be91561 e2f8296
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 22:16:30 2023 +0800
+
+    Merge branch 'master' of https://github.com/XYZliang/CAAI-BDSC2023-Task2
+
+[33mcommit be9156146bcc9bb45458b010aab3d5f566936973[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 22:16:12 2023 +0800
+
+    test build
+
+[33mcommit e2f829657cbdf174ecf7e06e8e72fa3e2c976e9b[m
+Author: XYZliang <59312540+XYZliang@users.noreply.github.com>
+Date:   Tue Jun 20 22:15:41 2023 +0800
+
+    Create dotnet.yml
+
+[33mcommit c436968de981828314d48fdcba6d75de634e5519[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 22:05:47 2023 +0800
+
+    0.4252 复赛
+    
+    0.4252
+    0.6180
+
+[33mcommit a84bca18891a76ec634148ff564d402f1aaa73bc[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 10:11:54 2023 +0800
+
+    复赛数据
+
+[33mcommit ea337bbdf97d23ac9537bb829cdda3b5b48e4f3e[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 01:43:18 2023 +0800
+
+    0.17 -
+    
+    四阶层
+
+[33mcommit 6f0de4c85396504222fbd90a9fa919f1ad8fae66[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 01:16:46 2023 +0800
+
+    0.2584088294506931 +
+    
+    根号
+    总的MRR: 0.2584088294506931
+    总的HITS@5: 0.38942722506139243
+
+[33mcommit 1eb20b6fd7e22eb61b0bd2cb7a003512caf236cc[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 00:59:16 2023 +0800
+
+     0.25793926019337615 -
+    
+    expn 0.12
+    总的MRR: 0.25793926019337615
+    总的HITS@5: 0.38853122718523925
+
+[33mcommit 5feeb9ac10c895d8291faf1e335776f63eb22896[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 00:37:46 2023 +0800
+
+    0.257896396097449 -
+    
+    expn0.08
+    总的MRR: 0.257896396097449
+    总的HITS@5: 0.38844826441892877
+
+[33mcommit 3125fa42cef61044561fcee32c86088fbd7ec04c[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 00:19:38 2023 +0800
+
+    0.25801337359794685 base
+    
+    base
+    总的MRR: 0.25801337359794685
+    总的HITS@5: 0.38859759739828764
+
+[33mcommit f854cbf76080232f2744462afeb613c9a1117618[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Tue Jun 20 00:03:27 2023 +0800
+
+    0.2589583195062231+
+    
+    4个expN * responseitems[fid].Count
+    总的MRR: 0.2589583195062231
+    总的HITS@5: 0.39004114953209
+
+[33mcommit 41d538c2d04228d2d09f0072da73b2b8574341b9[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Mon Jun 19 23:26:53 2023 +0800
+
+    0.24581563460987207-
+    
+    all Math.Exp();
+    总的MRR: 0.24581563460987207
+    总的HITS@5: 0.387104267604699
+
+[33mcommit ffbfc1f54d27f61762662bf7a71562c7ed61795d[m
+Author: XYZliang <zliang.std@gmail.com>
+Date:   Mon Jun 19 23:03:08 2023 +0800
+
+    init
